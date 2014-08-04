@@ -86,22 +86,22 @@ namespace _3D2048
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    gameLogic.Move();
+                    gameLogic.Move(_3D2048.Logic.Direction.Up);
                     break;
                 case Keys.Down:
-                    gameLogic.Move();
+                    gameLogic.Move(_3D2048.Logic.Direction.Down);
                     break;
                 case Keys.Left:
-                    gameLogic.Move();
+                    gameLogic.Move(_3D2048.Logic.Direction.Left);
                     break;
                 case Keys.Right:
-                    gameLogic.Move();
+                    gameLogic.Move(_3D2048.Logic.Direction.Right);
                     break;
                 case Keys.PageUp:
-                    gameLogic.Move();
+                    gameLogic.Move(_3D2048.Logic.Direction.Forward);
                     break;
                 case Keys.PageDown:
-                    gameLogic.Move();
+                    gameLogic.Move(_3D2048.Logic.Direction.Back);
                     break;
             }
         }
