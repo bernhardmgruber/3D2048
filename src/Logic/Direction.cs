@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _3D2048.Logic
 {
-    enum Move
+    enum Direction
     
     {
         Right, Left, Up, Down, Forward, Back
