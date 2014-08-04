@@ -32,6 +32,7 @@ namespace _3D2048.Util
             corners[5] = origin + new Vector3D(0, height, length);
             corners[6] = origin + new Vector3D(width, height, length);
             corners[7] = origin + new Vector3D(width, 0, length);
+            return corners;
         }
     }
 }
