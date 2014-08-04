@@ -8,10 +8,10 @@ namespace _3D2048.Util
 {
     class Cuboid
     {
-        Vector3D origin;
-        float width;
-        float height;
-        float length;
+        public Vector3D origin;
+        public float width;
+        public float height;
+        public float length;
 
         public Cuboid(Vector3D origin, float width, float height, float length)
         {

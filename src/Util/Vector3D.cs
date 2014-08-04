@@ -8,9 +8,9 @@ namespace _3D2048.Util
 {
     class Vector3D
     {
-        float x;
-        float y;
-        float z;
+        public float x;
+        public float y;
+        public float z;
 
         public Vector3D(float x, float y, float z)
         {
