@@ -11,7 +11,7 @@ namespace _3D2048.Util
         public Vector3D cubeRotation
         {
             get;
-            private set;
+            set;
         }
         public float zoom
         {
