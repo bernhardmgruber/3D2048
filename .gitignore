@@ -39,4 +39,4 @@ Icon
 /src/bin
 
 # Visual Studio
-.suo
+*.suo
