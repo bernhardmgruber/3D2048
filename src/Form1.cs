@@ -16,5 +16,27 @@ namespace _3D2048
         {
             InitializeComponent();
         }
+
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    break;
+                case Keys.Down:
+                    break;
+                case Keys.Left:
+                    break;
+                case Keys.Right:
+                    break;
+                case Keys.PageUp:
+                    break;
+                case Keys.PageDown:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
