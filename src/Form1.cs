@@ -21,6 +21,12 @@ namespace _3D2048
         {
             InitializeComponent();
             gameLogic = new Logic.GameLogic();
+
+            //  Get the OpenGL object, for quick access.
+            SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            //texture.Create(gl, "texture_2.");
+    
         }
 
         private void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
@@ -104,11 +110,6 @@ namespace _3D2048
                     gameLogic.Move(_3D2048.Logic.Direction.Back);
                     break;
             }
-        }
-
-        private void openGLControl1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)

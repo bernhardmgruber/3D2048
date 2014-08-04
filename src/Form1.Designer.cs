@@ -49,7 +49,6 @@
             this.openGLControl1.Size = new System.Drawing.Size(684, 379);
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
-            this.openGLControl1.Load += new System.EventHandler(this.openGLControl1_Load);
             // 
             // backgroundWorker1
             // 
