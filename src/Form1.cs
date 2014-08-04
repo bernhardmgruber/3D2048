@@ -12,12 +12,12 @@ namespace _3D2048
 {
     public partial class Form1 : Form
     {
-        private _3D2048.Logic.GameLogic _gameLogic;
+        private _3D2048.Logic.GameLogic gameLogic;
 
         public Form1()
         {
             InitializeComponent();
-            _gameLogic = new Logic.GameLogic();
+            gameLogic = new Logic.GameLogic();
         }
 
 
@@ -26,22 +26,22 @@ namespace _3D2048
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    _gameLogic.Move();
+                    gameLogic.Move();
                     break;
                 case Keys.Down:
-                    _gameLogic.Move();
+                    gameLogic.Move();
                     break;
                 case Keys.Left:
-                    _gameLogic.Move();
+                    gameLogic.Move();
                     break;
                 case Keys.Right:
-                    _gameLogic.Move();
+                    gameLogic.Move();
                     break;
                 case Keys.PageUp:
-                    _gameLogic.Move();
+                    gameLogic.Move();
                     break;
                 case Keys.PageDown:
-                    _gameLogic.Move();
+                    gameLogic.Move();
                     break;
             }
         }
