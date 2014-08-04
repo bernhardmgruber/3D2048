@@ -15,9 +15,12 @@ namespace _3D2048
 {
     public partial class Form1 : Form
     {
+        private _3D2048.Logic.GameLogic gameLogic;
+
         public Form1()
         {
             InitializeComponent();
+            gameLogic = new Logic.GameLogic();
         }
 
         private void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
@@ -83,18 +86,22 @@ namespace _3D2048
             switch (e.KeyCode)
             {
                 case Keys.Up:
+                    gameLogic.Move();
                     break;
                 case Keys.Down:
+                    gameLogic.Move();
                     break;
                 case Keys.Left:
+                    gameLogic.Move();
                     break;
                 case Keys.Right:
+                    gameLogic.Move();
                     break;
                 case Keys.PageUp:
+                    gameLogic.Move();
                     break;
                 case Keys.PageDown:
-                    break;
-                default:
+                    gameLogic.Move();
                     break;
             }
         }
