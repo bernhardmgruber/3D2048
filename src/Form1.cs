@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using _3D2048.Util;
 
 using SharpGL;
 using SharpGL.SceneGraph.Assets;
@@ -16,11 +17,15 @@ namespace _3D2048
     public partial class Form1 : Form
     {
         private _3D2048.Logic.GameLogic gameLogic;
+        private bool mouseIsMoving;
+        private Vector3D lastMousePosition; 
 
         public Form1()
         {
             InitializeComponent();
             gameLogic = new Logic.GameLogic();
+            mouseIsMoving = false;
+            lastMousePosition = new Vector3D(0, 0, 0);
         }
 
         private void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
@@ -113,6 +118,18 @@ namespace _3D2048
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseIsMoving = true;
+            lastMousePosition = new Vector3D(e.X, e.Y, 0);
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Vector3D deltaMove = new Vector3D(lastMousePosition.x - e.X, lastMousePosition.y - e.Y, 0);
 
         }
     }
