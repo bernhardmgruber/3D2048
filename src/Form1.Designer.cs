@@ -28,21 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.openGLControl1 = new SharpGL.OpenGLControl();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // openGLControl1
+            // 
+            this.openGLControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.openGLControl1.DrawFPS = false;
+            this.openGLControl1.FrameRate = 28;
+            this.openGLControl1.Location = new System.Drawing.Point(12, 12);
+            this.openGLControl1.Name = "openGLControl1";
+            this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
+            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
+            this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
+            this.openGLControl1.Size = new System.Drawing.Size(684, 379);
+            this.openGLControl1.TabIndex = 0;
+            this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
+            this.openGLControl1.Load += new System.EventHandler(this.openGLControl1_Load);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 486);
+            this.Controls.Add(this.openGLControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
+        private SharpGL.OpenGLControl openGLControl1;
 
         #endregion
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
