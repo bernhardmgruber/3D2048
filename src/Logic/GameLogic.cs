@@ -8,7 +8,7 @@ namespace _3D2048.Logic
 {
     class GameLogic
     {
-        /*public GameState gameModel;
+        public GameState gameModel;
 
         public GameLogic()*/
         public void Move(Direction direction)
