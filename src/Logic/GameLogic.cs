@@ -10,6 +10,10 @@ namespace _3D2048.Logic
     {
         public GameState gameModel = new GameState();
 
+        public GameLogic() {
+		
+		}
+
         public void Move(Direction direction)
         {
             switch (direction)
