@@ -36,6 +36,7 @@ namespace _3D2048.Logic
                                 else if (gameModel.field[i, j, l] == gameModel.field[i + 1, j, l])
                                 {
                                     gameModel.field[i + 1, j, l] = gameModel.field[i + 1, j, l] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
                                 }
                             }
                         }
@@ -60,6 +61,7 @@ namespace _3D2048.Logic
                                 else if (gameModel.field[i, j, l] == gameModel.field[i - 1, j, l])
                                 {
                                     gameModel.field[i - 1, j, l] = gameModel.field[i - 1, j, l] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
                                 }
                             }
                         }
@@ -84,6 +86,7 @@ namespace _3D2048.Logic
                                 else if (gameModel.field[i, j, l] == gameModel.field[i, j+1, l])
                                 {
                                     gameModel.field[i, j+1, l] = gameModel.field[i, j+1, l] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
                                 }
                             }
                         }
@@ -108,6 +111,7 @@ namespace _3D2048.Logic
                                 else if (gameModel.field[i, j, l] == gameModel.field[i, j-1, l])
                                 {
                                     gameModel.field[i, j-1, l] = gameModel.field[i, j-1, l] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
                                 }
                             }
                         }
@@ -132,6 +136,7 @@ namespace _3D2048.Logic
                                 else if (gameModel.field[i, j, l] == gameModel.field[i, j, l - 1])
                                 {
                                     gameModel.field[i, j, l - 1] = gameModel.field[i, j, l - 1] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
                                 }
 
 
@@ -157,6 +162,7 @@ namespace _3D2048.Logic
                                 else if (gameModel.field[i, j, l] == gameModel.field[i, j, l + 1])
                                 {
                                     gameModel.field[i, j, l + 1] = gameModel.field[i, j, l + 1] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
                                 }
 
 
