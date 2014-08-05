@@ -44,7 +44,7 @@ namespace _3D2048.Rendering
                 {
                     for (int k = 0; k < gameMatrixSize; k++)
                     {
-                        if (state.field[i, j, k] != 0 || state.field[i, j, k] != null)
+                        if (state.field[i, j, k] != 0)
                         {
                             gl.PushMatrix();
                             gl.Translate(-gameMatrixSize / 2 + 0.5 + i, -gameMatrixSize / 2 + 0.5 + j, -gameMatrixSize / 2 + 0.5 + k);
