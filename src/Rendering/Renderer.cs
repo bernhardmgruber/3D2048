@@ -34,7 +34,7 @@ namespace _3D2048.Rendering
 
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
 
-            //texture.Create(gl, "texture_2.bmp");
+            texture.Create(gl, "texture_2.bmp");
             //  Bind the texture.
             texture.Bind(gl);
 
