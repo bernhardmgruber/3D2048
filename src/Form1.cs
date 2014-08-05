@@ -7,7 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using _3D2048.Util;
+using _3D2048.Rendering;
+using _3D2048.Logic;
+
 
 using SharpGL;
 using SharpGL.SceneGraph.Assets;
@@ -17,6 +21,9 @@ namespace _3D2048
     public partial class Form1 : Form
     {
         private _3D2048.Logic.GameLogic gameLogic;
+
+        private Renderer renderer;
+
         private bool mouseIsMoving;
         private Vector3D lastMousePosition;
         private Camera gameCamera;
@@ -29,69 +36,24 @@ namespace _3D2048
             lastMousePosition = new Vector3D(0, 0, 0);
             gameCamera = new Camera();
 
-            //  Get the OpenGL object, for quick access.
-            SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
-            gl.Enable(OpenGL.GL_TEXTURE_2D);
-            //texture.Create(gl, "texture_2.");
+
+            initOpenGL();
     
         }
 
-        private void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
+        private void initOpenGL()
         {
             //  Get the OpenGL object, for quick access.
             SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            //texture.Create(gl, "texture_2.");#
 
-            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-            gl.LoadIdentity();
-            gl.Translate(0.0f, 0.0f, -6.0f);
+            renderer = new Renderer(gl);
+        }
 
-            //gl.Rotate(rtri, 0.0f, 1.0f, 0.0f);
-
-            //  Bind the texture.
-            //texture.Bind(gl);
-
-            gl.Begin(OpenGL.GL_QUADS);
-
-            // Front Face
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(1.0f, -1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(1.0f, 1.0f, 1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, 1.0f);	// Top Left Of The Texture and Quad
-
-            // Back Face
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, -1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(1.0f, 1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
-
-            // Top Face
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-1.0f, 1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(1.0f, 1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(1.0f, 1.0f, -1.0f);	// Top Right Of The Texture and Quad
-
-            // Bottom Face
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-1.0f, -1.0f, -1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(1.0f, -1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(1.0f, -1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-
-            // Right face
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(1.0f, 1.0f, -1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(1.0f, 1.0f, 1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(1.0f, -1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-
-            // Left Face
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, 1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.End();
-
-            gl.Flush();
-
-            //rtri += 1.0f;// 0.2f;						// Increase The Rotation Variable For The Triangle 
+        public void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
+        {
+            renderer.draw(gameCamera);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -128,28 +90,111 @@ namespace _3D2048
             switch (keyData)
             {
                 case Keys.Up:
-                    gameLogic.Move(_3D2048.Logic.Direction.Up);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Up));
                     break;
                 case Keys.Down:
-                    gameLogic.Move(_3D2048.Logic.Direction.Down);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Down));
                     break;
                 case Keys.Left:
-                    gameLogic.Move(_3D2048.Logic.Direction.Left);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Left));
                     break;
                 case Keys.Right:
-                    gameLogic.Move(_3D2048.Logic.Direction.Right);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Right));
                     break;
                 case Keys.PageUp:
-                    gameLogic.Move(_3D2048.Logic.Direction.Forward);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Forward));
                     break;
                 case Keys.PageDown:
-                    gameLogic.Move(_3D2048.Logic.Direction.Back);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Back));
                     break;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private Direction getMoveDependentDirection(Direction direction)
+        {
+            Direction outputDirection = direction;
+
+            switch (gameCamera.getFrontFace())
+            {
+                case CubeFace.FRONT:
+                    // Directions don't need to be changed
+                    outputDirection = direction;
+                    break;
+                case CubeFace.LEFT:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else if (direction == Direction.Left)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                case CubeFace.BACK:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Left)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                case CubeFace.RIGHT:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                default:
+                    outputDirection = direction;
+                    break;
+            }
+
+            return outputDirection;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
