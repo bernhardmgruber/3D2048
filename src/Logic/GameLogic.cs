@@ -197,8 +197,8 @@ namespace _3D2048.Logic
             int ii;
             int jj;
             int ll;
-           while (freeSpawn == false ) {
-            Random x = new Random();
+           while (freeSpawn == false ) { // TODO: implement intelligent search
+            Random x = new Random(); // FIXME: instantiate once in ctor and reuse
            
             int randomX = x.Next(0, 2);
             if (randomX >= 1)
@@ -210,7 +210,7 @@ namespace _3D2048.Logic
                 ii = 0;
             }
 
-            Random y = new Random();
+            Random y = new Random(); // FIXME: instantiate once in ctor and reuse
 
             int randomY = y.Next(0, 2);
             if (randomY >= 1)
@@ -221,7 +221,7 @@ namespace _3D2048.Logic
             {
                 jj = 0;
             }
-            Random z = new Random();
+            Random z = new Random(); // FIXME: instantiate once in ctor and reuse
 
             int randomZ = z.Next(0, 2);
             if (randomZ >= 1)
