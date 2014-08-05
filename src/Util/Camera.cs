@@ -27,11 +27,7 @@ namespace _3D2048.Util
 
         public CubeFace getFrontFace()
         {
-            if (cubeRotation.y > 315 || cubeRotation.y <= 45)
-            {
-                return CubeFace.FRONT;
-            }
-            else if (cubeRotation.y > 45 && cubeRotation.y <= 135)
+            if (cubeRotation.y > 45 && cubeRotation.y <= 135)
             {
                 return CubeFace.RIGHT;
             }

@@ -25,9 +25,14 @@ namespace _3D2048.Util
 
         private static Vector3D TILE_COLOR_SUPER = Color.rgb(0x3c3a32);
 
-        public static Vector3D getTileColor(int value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tileValue">number displayed in the tile</param>
+        /// <returns></returns>
+        public static Vector3D getTileColor(int tileValue)
         {
-            int index = (int) Math.Log(value, 2);
+            int index = (int) Math.Log(tileValue, 2);
             if (index > 11)
             {
                 return TILE_COLOR_SUPER;
@@ -39,7 +44,7 @@ namespace _3D2048.Util
             int r = (hex >> 16) & 255;
             int g = (hex >> 8) & 255;
             int b = hex & 255;
-            return new Vector3D(r/255, g/255, b/255);
+            return new Vector3D(r/255f, g/255f, b/255f);
         }
     }
 }
