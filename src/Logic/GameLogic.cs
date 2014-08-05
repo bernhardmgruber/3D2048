@@ -8,7 +8,7 @@ namespace _3D2048.Logic
 {
     class GameLogic
     {
-        public GameState gameModel;
+        public GameState gameModel  {get; private set;}
 
         public GameLogic()
         {
