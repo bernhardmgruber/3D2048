@@ -10,7 +10,6 @@ namespace _3D2048.Logic
     {
         public GameState gameModel;
 
-        /*public GameLogic()*/
         public void Move(Direction direction)
         {
             switch (direction)
@@ -173,6 +172,11 @@ namespace _3D2048.Logic
                         if (gameModel.field[i, j, l] == 0)
                         {
                             freeField = true;
+                        }
+                        
+                        else if(gameModel.field[i, j, l] == 2048)
+                        {
+                            gameModel.won = true;
                         }
                     }
                 }
