@@ -17,17 +17,23 @@ namespace _3D2048
     public partial class Form1 : Form
     {
         private _3D2048.Logic.GameLogic gameLogic;
-        private _3D2048.Util.Camera gameCamera;
         private bool mouseIsMoving;
-        private Vector3D lastMousePosition; 
+        private Vector3D lastMousePosition;
+        private Camera gameCamera;
 
         public Form1()
         {
             InitializeComponent();
             gameLogic = new Logic.GameLogic();
-            gameCamera = new Camera();
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
+            gameCamera = new Camera();
+
+            //  Get the OpenGL object, for quick access.
+            SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            //texture.Create(gl, "texture_2.");
+    
         }
 
         private void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
@@ -91,11 +97,6 @@ namespace _3D2048
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             
-
-        }
-
-        private void openGLControl1_Load(object sender, EventArgs e)
-        {
 
         }
 
