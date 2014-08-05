@@ -54,7 +54,7 @@ namespace _3D2048
 
         public void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
         {
-            renderer.draw(gameCamera);
+            renderer.draw(gameCamera,gameLogic.gameModel);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

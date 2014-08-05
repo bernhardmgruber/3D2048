@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SharpGL;
 using SharpGL.SceneGraph.Assets;
 using _3D2048.Util;
+using _3D2048.Logic;
 
 namespace _3D2048.Rendering
 {
@@ -16,15 +17,18 @@ namespace _3D2048.Rendering
 
         public Renderer(OpenGL glIn)
         {
-            gl = glIn;        
+            gl = glIn;
         }
 
 
 
         Texture texture = new Texture();
+        String texturePath = "texture_2.bmp";
 
+        private int gameMatrixSize = 4; //to be replaced
+   
 
-        public void draw(Camera camera)
+        public void draw(Camera camera, GameState state)
         {
 
 
@@ -34,50 +38,77 @@ namespace _3D2048.Rendering
 
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
 
-            texture.Create(gl, "texture_2.bmp");
+            for (int i = 0; i < gameMatrixSize; i++)
+            {
+                for (int j = 0; j < gameMatrixSize; j++)
+                {
+                    for (int k = 0; k < gameMatrixSize; k++)
+                    {
+                        if (state.field[i, j, k] != 0 || state.field[i, j, k] != null)
+                        {
+                            gl.PushMatrix();
+                            gl.Translate(-gameMatrixSize / 2 + 0.5 + i, -gameMatrixSize / 2 + 0.5 + j, -gameMatrixSize / 2 + 0.5 + k);
+                            drawCube();
+                            gl.PopMatrix();
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+        private void drawCube()
+        {
+            texture.Create(gl, texturePath);
+
             //  Bind the texture.
             texture.Bind(gl);
+
 
             gl.Begin(OpenGL.GL_QUADS);
 
             // Front Face
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(1.0f, -1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(1.0f, 1.0f, 1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, 1.0f);	// Top Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, -0.5f, 0.5f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.0f); gl.Vertex(0.5f, -0.5f, 0.5f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.5f); gl.Vertex(0.5f, 0.5f, 0.5f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.5f); gl.Vertex(-0.5f, 0.5f, 0.5f);	// Top Left Of The Texture and Quad
 
             // Back Face
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, -1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(1.0f, 1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.5f); gl.Vertex(-0.5f, 0.5f, -0.5f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.5f); gl.Vertex(0.5f, 0.5f, -0.5f);	// Top Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.5f, -0.5f, -0.5f);	// Bottom Left Of The Texture and Quad
 
             // Top Face
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-1.0f, 1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(1.0f, 1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(1.0f, 1.0f, -1.0f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.5f); gl.Vertex(-0.5f, 0.5f, -0.5f);	// Top Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, 0.5f, 0.5f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.0f); gl.Vertex(0.5f, 0.5f, 0.5f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.5f); gl.Vertex(0.5f, 0.5f, -0.5f);	// Top Right Of The Texture and Quad
 
             // Bottom Face
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-1.0f, -1.0f, -1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(1.0f, -1.0f, -1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(1.0f, -1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.5f); gl.Vertex(-0.5f, -0.5f, -0.5f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.5f); gl.Vertex(0.5f, -0.5f, -0.5f);	// Top Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.5f, -0.5f, 0.5f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.0f); gl.Vertex(-0.5f, -0.5f, 0.5f);	// Bottom Right Of The Texture and Quad
 
             // Right face
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(1.0f, 1.0f, -1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(1.0f, 1.0f, 1.0f);	// Top Left Of The Texture and Quad
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(1.0f, -1.0f, 1.0f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.0f); gl.Vertex(0.5f, -0.5f, -0.5f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.5f); gl.Vertex(0.5f, 0.5f, -0.5f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.5f); gl.Vertex(0.5f, 0.5f, 0.5f);	// Top Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.5f, -0.5f, 0.5f);	// Bottom Left Of The Texture and Quad
 
             // Left Face
-            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
-            gl.TexCoord(1.0f, 0.0f); gl.Vertex(-1.0f, -1.0f, 1.0f);	// Bottom Right Of The Texture and Quad
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, 1.0f);	// Top Right Of The Texture and Quad
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-1.0f, 1.0f, -1.0f);	// Top Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.0f); gl.Vertex(-0.5f, -0.5f, 0.5f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(0.5f, 0.5f); gl.Vertex(-0.5f, 0.5f, 0.5f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 0.5f); gl.Vertex(-0.5f, 0.5f, -0.5f);	// Top Left Of The Texture and Quad
             gl.End();
 
             gl.Flush();
+
+
 
         }
     }
