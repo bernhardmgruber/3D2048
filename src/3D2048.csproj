@@ -64,7 +64,6 @@
     <Compile Include="Logic\GameState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderer\Renderer.cs" />
     <Compile Include="Util\Camera.cs" />
     <Compile Include="Util\Cuboid.cs" />
     <Compile Include="Util\Vector3D.cs" />
