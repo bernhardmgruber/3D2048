@@ -68,13 +68,13 @@ namespace _3D2048
 
         }
 
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private void openGLControl1_MouseDown(object sender, MouseEventArgs e)
         {
             mouseIsMoving = true;
             lastMousePosition = new Vector3D(e.X, e.Y, 0);
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseIsMoving)
             {
@@ -86,12 +86,12 @@ namespace _3D2048
             }
         }
 
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        private void openGLControl1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseIsMoving = false;
         }
 
-        private void Form1_MouseWheel(object sender, MouseEventArgs e)
+        private void openGLControl1_MouseWheel(object sender, MouseEventArgs e)
         {
             gameCamera.zoom += e.Delta > 0 ? 1 : -1;
         }
