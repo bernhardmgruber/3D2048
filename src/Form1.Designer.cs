@@ -48,10 +48,10 @@
             this.openGLControl1.Size = new System.Drawing.Size(723, 486);
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
-            this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
-            this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
-            this.openGLControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
-            this.openGLControl1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseWheel);
+            this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseDown);
+            this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseMove);
+            this.openGLControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseUp);
+            this.openGLControl1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseWheel);
             // 
             // backgroundWorker1
             // 
