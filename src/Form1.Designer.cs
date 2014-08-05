@@ -38,7 +38,7 @@
             // 
             this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.openGLControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.openGLControl1.DrawFPS = false;
+            this.openGLControl1.DrawFPS = true;
             this.openGLControl1.FrameRate = 28;
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
             this.openGLControl1.Name = "openGLControl1";
@@ -48,6 +48,7 @@
             this.openGLControl1.Size = new System.Drawing.Size(723, 486);
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
+            this.openGLControl1.Load += new System.EventHandler(this.openGLControl1_Load);
             this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseDown);
             this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseMove);
             this.openGLControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseUp);
@@ -68,7 +69,6 @@
             this.Name = "Form1";
             this.Text = "3D2048";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
 
