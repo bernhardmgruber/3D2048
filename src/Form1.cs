@@ -135,5 +135,10 @@ namespace _3D2048
             gameCamera.cubeRotation += deltaMove;
             lastMousePosition = new Vector3D(e.X, e.Y, 0);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
