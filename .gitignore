@@ -41,3 +41,6 @@ Icon
 /src/bin
 *.suo
 *.csproj.user
+
+# Nuget packages
+/src/packages/*
