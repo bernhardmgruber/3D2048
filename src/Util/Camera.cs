@@ -16,7 +16,7 @@ namespace _3D2048.Util
         public float zoom
         {
             get;
-            private set;
+            set;
         }
 
         public Camera()
