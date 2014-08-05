@@ -20,6 +20,8 @@ namespace _3D2048
 {
     public partial class Form1 : Form
     {
+        const float MOTION_SENSITIVITY = 0.5f;
+
         private _3D2048.Logic.GameLogic gameLogic;
 
         private Renderer renderer;
@@ -75,9 +77,14 @@ namespace _3D2048
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            Vector3D deltaMove = new Vector3D(lastMousePosition.x - e.X, lastMousePosition.y - e.Y, 0);
-            gameCamera.cubeRotation += deltaMove;
-            lastMousePosition = new Vector3D(e.X, e.Y, 0);
+            if (mouseIsMoving)
+            {
+                float dy = (e.Y - lastMousePosition.y) * MOTION_SENSITIVITY;
+                float dx = (e.X - lastMousePosition.x) * MOTION_SENSITIVITY;
+                Vector3D deltaMove = new Vector3D(dy, dx, 0);
+                gameCamera.cubeRotation += deltaMove;
+                lastMousePosition = new Vector3D(e.X, e.Y, 0);
+            }
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
