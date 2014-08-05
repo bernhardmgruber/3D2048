@@ -17,13 +17,22 @@ namespace _3D2048.Logic
             {
                 case Logic.Direction.Right:
 
-                    for (int i = 3; i > 0; i--)
+                    for (int i = 0; i < 3; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
                             for (int l = 0; l < 4; l++)
                             {
-                               //GameState.field
+                              if (gameModel.field[i, j, l] == 0)
+                                {
+                                    gameModel.field[i + 1, j, l] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
+                                }
+
+                                else if (gameModel.field[i, j, l] == gameModel.field[i + 1, j, l])
+                                {
+                                    gameModel.field[i + 1, j, l] = gameModel.field[i + 1, j, l] + gameModel.field[i, j, l];
+                                }
                             }
                         }
                     }
@@ -32,17 +41,77 @@ namespace _3D2048.Logic
 
                 case Logic.Direction.Left:
 
+                     for (int i = 3; i > 0; i--)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            for (int l = 0; l < 4; l++)
+                            {
+                              if (gameModel.field[i, j, l] == 0)
+                                {
+                                    gameModel.field[i - 1, j, l] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
+                                }
+
+                                else if (gameModel.field[i, j, l] == gameModel.field[i - 1, j, l])
+                                {
+                                    gameModel.field[i - 1, j, l] = gameModel.field[i - 1, j, l] + gameModel.field[i, j, l];
+                                }
+                            }
+                        }
+                    }
+
                     break;
 
                 case Logic.Direction.Up:
+
+                    for (int j = 3; j > 0; j--)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int l = 0; l < 4; l++)
+                            {
+                              if (gameModel.field[i, j, l] == 0)
+                                {
+                                    gameModel.field[i , j-1, l] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
+                                }
+
+                                else if (gameModel.field[i, j, l] == gameModel.field[i, j-1, l])
+                                {
+                                    gameModel.field[i, j-1, l] = gameModel.field[i, j-1, l] + gameModel.field[i, j, l];
+                                }
+                            }
+                        }
+                    }
 
                     break;
 
                 case Logic.Direction.Down:
 
+                      for (int j = 0; j < 3; j++)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int l = 0; l < 4; l++)
+                            {
+                              if (gameModel.field[i, j, l] == 0)
+                                {
+                                    gameModel.field[i , j+1, l] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
+                                }
+
+                                else if (gameModel.field[i, j, l] == gameModel.field[i, j+1, l])
+                                {
+                                    gameModel.field[i, j+1, l] = gameModel.field[i, j+1, l] + gameModel.field[i, j, l];
+                                }
+                            }
+                        }
+                    }
+
                     break;
 
-                case Logic.Direction.Forward:
+                case Logic.Direction.Back:
 
                     for (int l = 0; l < 3; l++)
                     {
@@ -52,7 +121,32 @@ namespace _3D2048.Logic
                             {
                                 if (gameModel.field[i, j, l] == 0)
                                 {
-                                    gameModel.field[i, j, l-1] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l+1] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
+                                }
+
+                                else if (gameModel.field[i, j, l] == gameModel.field[i, j, l + 1])
+                                {
+                                    gameModel.field[i, j, l + 1] = gameModel.field[i, j, l + 1] + gameModel.field[i, j, l];
+                                }
+
+
+                            }
+                        }
+                    }
+
+                    break;
+                case Logic.Direction.Forward:
+
+                    for (int l = 3; l > 0; l--)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                if (gameModel.field[i, j, l] == 0)
+                                {
+                                    gameModel.field[i, j, l - 1] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
                                 }
 
@@ -66,35 +160,19 @@ namespace _3D2048.Logic
                         }
                     }
                     break;
-                case Logic.Direction.Back:
-                    for (int l = 0; l < 3; l--)
+            }
+            /*Boolean lost = false;
+             for (int l = 0; l < 4; l++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
                             for (int i = 0; i < 4; i++)
-                            {
-                                if (gameModel.field[i, j, l] == 0)
-                                {
-                                    gameModel.field[i, j, l + 1] = gameModel.field[i, j, l];
-                                    gameModel.field[i, j, l] = 0;
-                                }
-
-                                else if (gameModel.field[i, j, l] == gameModel.field[i, j, l + 1])
-                                {
-                                    gameModel.field[i, j, l + 1] = gameModel.field[i, j, l + 1] + gameModel.field[i, j, l];
-                                }
-
-
-                            }
-                        }
-                    }
-                    break;
-            }
-            Boolean free = false;
+            if 
+           Boolean free = false;
             int ii;
             int jj;
             int ll;
-            while (free == false ) {
+           while (free == false ) {
             Random x = new Random();
            
             int randomX = x.Next(0, 2);
@@ -134,7 +212,8 @@ namespace _3D2048.Logic
                 gameModel.field[ii, jj, ll] = 2;
                 free = true;
             }
-        }
+        }*/
+             
         }
     }
 }
