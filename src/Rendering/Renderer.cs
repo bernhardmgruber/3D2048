@@ -8,16 +8,19 @@ using SharpGL;
 using SharpGL.SceneGraph.Assets;
 using _3D2048.Util;
 
-namespace _3D2048.Renderer
+namespace _3D2048.Rendering
 {
     class Renderer
     {
         private OpenGL gl;
-        public Renderer(OpenGL glIn){
+
+        public Renderer(OpenGL glIn)
+        {
             gl = glIn;        
         }
+    
 
-        public int fu {get; set;}
+
 
         public void draw(Camera camera)
         {
