@@ -22,7 +22,7 @@ namespace _3D2048.Util
         public Camera()
         {
             cubeRotation = new Vector3D(0, 0, 0);
-            zoom = 0;
+            zoom = -6;
         }
 
         public CubeFace getFrontFace()
