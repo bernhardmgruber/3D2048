@@ -90,27 +90,8 @@ namespace _3D2048
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            {
-                case Keys.Up:
-                    gameLogic.Move(_3D2048.Logic.Direction.Up);
-                    break;
-                case Keys.Down:
-                    gameLogic.Move(_3D2048.Logic.Direction.Down);
-                    break;
-                case Keys.Left:
-                    gameLogic.Move(_3D2048.Logic.Direction.Left);
-                    break;
-                case Keys.Right:
-                    gameLogic.Move(_3D2048.Logic.Direction.Right);
-                    break;
-                case Keys.PageUp:
-                    gameLogic.Move(_3D2048.Logic.Direction.Forward);
-                    break;
-                case Keys.PageDown:
-                    gameLogic.Move(_3D2048.Logic.Direction.Back);
-                    break;
-            }
+            
+
         }
 
         private void openGLControl1_Load(object sender, EventArgs e)
@@ -134,6 +115,38 @@ namespace _3D2048
             Vector3D deltaMove = new Vector3D(lastMousePosition.x - e.X, lastMousePosition.y - e.Y, 0);
             gameCamera.cubeRotation += deltaMove;
             lastMousePosition = new Vector3D(e.X, e.Y, 0);
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseIsMoving = false;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Up:
+                    gameLogic.Move(_3D2048.Logic.Direction.Up);
+                    break;
+                case Keys.Down:
+                    gameLogic.Move(_3D2048.Logic.Direction.Down);
+                    break;
+                case Keys.Left:
+                    gameLogic.Move(_3D2048.Logic.Direction.Left);
+                    break;
+                case Keys.Right:
+                    gameLogic.Move(_3D2048.Logic.Direction.Right);
+                    break;
+                case Keys.PageUp:
+                    gameLogic.Move(_3D2048.Logic.Direction.Forward);
+                    break;
+                case Keys.PageDown:
+                    gameLogic.Move(_3D2048.Logic.Direction.Back);
+                    break;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
