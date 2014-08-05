@@ -161,18 +161,34 @@ namespace _3D2048.Logic
                     }
                     break;
             }
-            /*Boolean lost = false;
-             for (int l = 0; l < 4; l++)
+
+            bool freeField = false;
+
+            for (int l = 0; l < 4; l++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    for (int i = 0; i < 4; i++)
                     {
-                        for (int j = 0; j < 4; j++)
+                        if (gameModel.field[i, j, l] == 0)
                         {
-                            for (int i = 0; i < 4; i++)
-            if 
-           Boolean free = false;
+                            freeField = true;
+                        }
+                    }
+                }
+            }
+
+            if (freeField == false)
+            {
+
+                gameModel.lost = true;
+            }
+
+           bool freeSpawn = false;
             int ii;
             int jj;
             int ll;
-           while (free == false ) {
+           while (freeSpawn == false ) {
             Random x = new Random();
            
             int randomX = x.Next(0, 2);
@@ -210,9 +226,9 @@ namespace _3D2048.Logic
             if (gameModel.field[ii, jj, ll] == 0)
             {
                 gameModel.field[ii, jj, ll] = 2;
-                free = true;
+                freeSpawn = true;
             }
-        }*/
+        }
              
         }
     }
