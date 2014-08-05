@@ -50,7 +50,9 @@
             this.openGLControl1.Size = new System.Drawing.Size(923, 685);
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
-            this.openGLControl1.Load += new System.EventHandler(this.openGLControl1_Load);
+            this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.openGLControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
             // 
             // backgroundWorker1
             // 
@@ -64,12 +66,14 @@
             this.Controls.Add(this.openGLControl1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "3d2048";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
 
