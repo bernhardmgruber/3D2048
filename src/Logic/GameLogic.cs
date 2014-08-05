@@ -27,7 +27,7 @@ namespace _3D2048.Logic
                         {
                             for (int l = 0; l < 4; l++)
                             {
-                              if (gameModel.field[i, j, l] == 0)
+                              if (gameModel.field[i+1, j, l] == 0)
                                 {
                                     gameModel.field[i + 1, j, l] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
@@ -51,7 +51,7 @@ namespace _3D2048.Logic
                         {
                             for (int l = 0; l < 4; l++)
                             {
-                              if (gameModel.field[i, j, l] == 0)
+                              if (gameModel.field[i-1, j, l] == 0)
                                 {
                                     gameModel.field[i - 1, j, l] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
@@ -75,7 +75,7 @@ namespace _3D2048.Logic
                         {
                             for (int l = 0; l < 4; l++)
                             {
-                              if (gameModel.field[i, j, l] == 0)
+                              if (gameModel.field[i, j+1, l] == 0)
                                 {
                                     gameModel.field[i , j+1, l] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
@@ -99,7 +99,7 @@ namespace _3D2048.Logic
                         {
                             for (int l = 0; l < 4; l++)
                             {
-                              if (gameModel.field[i, j, l] == 0)
+                              if (gameModel.field[i, j-1, l] == 0)
                                 {
                                     gameModel.field[i , j-1, l] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
@@ -123,7 +123,7 @@ namespace _3D2048.Logic
                         {
                             for (int i = 0; i < 4; i++)
                             {
-                                if (gameModel.field[i, j, l] == 0)
+                                if (gameModel.field[i, j, l-1] == 0)
                                 {
                                     gameModel.field[i, j, l-1] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
@@ -148,7 +148,7 @@ namespace _3D2048.Logic
                         {
                             for (int i = 0; i < 4; i++)
                             {
-                                if (gameModel.field[i, j, l] == 0)
+                                if (gameModel.field[i, j, l+1] == 0)
                                 {
                                     gameModel.field[i, j, l + 1] = gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
