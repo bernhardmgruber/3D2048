@@ -23,10 +23,15 @@ namespace _3D2048.Util
             Color.rgb(0xedc22e), //2048     2^11
         };
 
+        private static Vector3D TILE_COLOR_SUPER = Color.rgb(0x3c3a32);
+
         public static Vector3D getTileColor(int value)
         {
             int index = (int) Math.Log(value, 2);
-            return TILE_COLORS[index];
+            if (index > 11)
+            {
+                return TILE_COLOR_SUPER;
+            } else return TILE_COLORS[index-1];
         }
 
         public static Vector3D rgb(int hex)
