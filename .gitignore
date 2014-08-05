@@ -40,7 +40,7 @@ Icon
 /src/obj
 /src/bin
 *.suo
-*.csproj.user
+*.user
 
 # Nuget packages
 /src/packages/*
