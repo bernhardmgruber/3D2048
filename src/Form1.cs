@@ -7,8 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using _3D2048.Util;
 using _3D2048.Rendering;
+using _3D2048.Logic;
+
 
 using SharpGL;
 using SharpGL.SceneGraph.Assets;
@@ -87,28 +90,111 @@ namespace _3D2048
             switch (keyData)
             {
                 case Keys.Up:
-                    gameLogic.Move(_3D2048.Logic.Direction.Up);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Up));
                     break;
                 case Keys.Down:
-                    gameLogic.Move(_3D2048.Logic.Direction.Down);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Down));
                     break;
                 case Keys.Left:
-                    gameLogic.Move(_3D2048.Logic.Direction.Left);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Left));
                     break;
                 case Keys.Right:
-                    gameLogic.Move(_3D2048.Logic.Direction.Right);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Right));
                     break;
                 case Keys.PageUp:
-                    gameLogic.Move(_3D2048.Logic.Direction.Forward);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Forward));
                     break;
                 case Keys.PageDown:
-                    gameLogic.Move(_3D2048.Logic.Direction.Back);
+                    gameLogic.Move(getMoveDependentDirection(Direction.Back));
                     break;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private Direction getMoveDependentDirection(Direction direction)
+        {
+            Direction outputDirection = direction;
+
+            switch (gameCamera.getFrontFace())
+            {
+                case CubeFace.FRONT:
+                    // Directions don't need to be changed
+                    outputDirection = direction;
+                    break;
+                case CubeFace.LEFT:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else if (direction == Direction.Left)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                case CubeFace.BACK:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Left)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                case CubeFace.RIGHT:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                default:
+                    outputDirection = direction;
+                    break;
+            }
+
+            return outputDirection;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
