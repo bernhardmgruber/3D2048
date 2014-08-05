@@ -30,7 +30,7 @@ namespace _3D2048.Rendering
             gl.LoadIdentity();
             gl.Translate(0.0f, 0.0f, -6.0f);
 
-            //gl.Rotate(rtri, 0.0f, 1.0f, 0.0f);
+            gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
 
             //  Bind the texture.
             //texture.Bind(gl);
@@ -76,7 +76,6 @@ namespace _3D2048.Rendering
 
             gl.Flush();
 
-            //rtri += 1.0f;// 0.2f;						// Increase The Rotation Variable For The Triangle 
         }
     }
 }
