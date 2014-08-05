@@ -18,8 +18,10 @@ namespace _3D2048.Rendering
         {
             gl = glIn;        
         }
-    
 
+
+
+        Texture texture = new Texture();
 
 
         public void draw(Camera camera)
@@ -28,12 +30,13 @@ namespace _3D2048.Rendering
 
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.LoadIdentity();
-            gl.Translate(0.0f, 0.0f, -6.0f);
+            gl.Translate(0.0f, 0.0f, camera.zoom);
 
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
 
+            //texture.Create(gl, "texture_2.bmp");
             //  Bind the texture.
-            //texture.Bind(gl);
+            texture.Bind(gl);
 
             gl.Begin(OpenGL.GL_QUADS);
 
