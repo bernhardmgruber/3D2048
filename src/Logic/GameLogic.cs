@@ -23,7 +23,16 @@ namespace _3D2048.Logic
                         {
                             for (int l = 0; l < 4; l++)
                             {
-                               //GameState.field
+                              if (gameModel.field[i, j, l] == 0)
+                                {
+                                    gameModel.field[i - 1, j, l] = gameModel.field[i, j, l];
+                                    gameModel.field[i, j, l] = 0;
+                                }
+
+                                else if (gameModel.field[i, j, l] == gameModel.field[i - 1, j, l])
+                                {
+                                    gameModel.field[i - 1, j, l] = gameModel.field[i - 1, j, l] + gameModel.field[i, j, l];
+                                }
                             }
                         }
                     }
@@ -65,9 +74,10 @@ namespace _3D2048.Logic
                             }
                         }
                     }
+
                     break;
                 case Logic.Direction.Back:
-                    for (int l = 0; l < 3; l--)
+                    for (int l = 0; l > 3; l--)
                     {
                         for (int j = 0; j < 4; j++)
                         {
@@ -90,6 +100,13 @@ namespace _3D2048.Logic
                     }
                     break;
             }
+            Boolean lost = false;
+             for (int l = 0; l < 4; l++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            for (int i = 0; i < 4; i++)
+            if 
             Boolean free = false;
             int ii;
             int jj;
