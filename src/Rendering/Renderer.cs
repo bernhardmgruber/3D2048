@@ -64,6 +64,8 @@ namespace _3D2048.Rendering
             //  Bind the texture.
             texture.Bind(gl);
 
+            Vector3D color = Util.Color.getTileColor(number);
+            gl.Color(color.x, color.y, color.z);
 
             gl.Begin(OpenGL.GL_QUADS);
 
