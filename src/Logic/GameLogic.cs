@@ -175,7 +175,7 @@ namespace _3D2048.Logic
 
                                 else if (gameModel.field[i, j, l] == gameModel.field[i, j+1, l])
                                 {
-                                    gameModel.field[i, j+1, l] = gameModel.field[i, j+1, l] + gameModel.field[i, j, l];
+                                    gameModel.field[i, j + 1, l] = gameModel.field[i, j + 1, l] + gameModel.field[i, j, l];
                                     gameModel.field[i, j, l] = 0;
                                 }
                             }
@@ -289,10 +289,6 @@ namespace _3D2048.Logic
                 gameModel.lost = true;
             }
 
-           bool freeSpawn = false;
-            int ii;
-            int jj;
-            int ll;
             Random random = new Random();
             int nullCounter = 0;
 
@@ -320,7 +316,10 @@ namespace _3D2048.Logic
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        nullCounter++;
+                        if (gameModel.field[i, j, l] == 0)
+                        {
+                            nullCounter++;
+                        }
                         if (randomNull == nullCounter)
                         
                         {

@@ -23,9 +23,6 @@ namespace _3D2048.Rendering
         }
 
 
-
-        
-
         private int gameMatrixSize = 4; //to be replaced
    
 
