@@ -127,6 +127,9 @@ namespace _3D2048
         {
             Direction outputDirection = direction;
 
+            // REMOVEME: return only normal directions
+            return direction;
+
             switch (gameCamera.getFrontFace())
             {
                 case CubeFace.FRONT:
