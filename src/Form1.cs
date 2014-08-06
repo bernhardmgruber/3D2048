@@ -29,14 +29,18 @@ namespace _3D2048
         private bool mouseIsMoving;
         private Vector3D lastMousePosition;
         private Camera gameCamera;
+        private KinectInput kinect;
 
         public Form1()
         {
             InitializeComponent();
             gameLogic = new Logic.GameLogic();
+            gameCamera = new Camera();
+
+            kinect = new KinectInput(gameLogic, gameCamera);
+
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
-            gameCamera = new Camera();
 
 
             initOpenGL();
