@@ -30,6 +30,10 @@ namespace _3D2048.Rendering
 
 
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+
+            gl.Enable(OpenGL.GL_BLEND);
+            gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
+
             gl.LoadIdentity();
             gl.Translate(0.0f, 0.0f, camera.zoom);
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
@@ -64,7 +68,7 @@ namespace _3D2048.Rendering
             texture.Bind(gl);
 
             Vector3D color = Util.Color.getTileColor(number);
-            gl.Color(color.x, color.y, color.z);
+            gl.Color(color.x, color.y, color.z, 0.45f);
 
             gl.Begin(OpenGL.GL_QUADS);
 
