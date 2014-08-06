@@ -39,7 +39,7 @@ namespace _3D2048.Util
             int r = (hex >> 16) & 255;
             int g = (hex >> 8) & 255;
             int b = hex & 255;
-            return new Vector3D(r/255, g/255, b/255);
+            return new Vector3D(r/255f, g/255f, b/255f);
         }
     }
 }
