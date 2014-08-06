@@ -14,11 +14,10 @@ namespace _3D2048.Util
 
         public float Length
         {
-            public get
+            get
             {
-                return (float) Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z, 2))
+                return (float)Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z, 2));
             }
-            private set;
         }
 
         public Vector3D(float x, float y, float z)
