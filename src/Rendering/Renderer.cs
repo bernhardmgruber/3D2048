@@ -20,8 +20,10 @@ namespace _3D2048.Rendering
         {
             gl = glIn;
             textures = new Textures(gl);
-        }
 
+            gl.Enable(OpenGL.GL_TEXTURE_2D);
+            gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
+        }
 
    
 

@@ -51,7 +51,6 @@ namespace _3D2048
         {
             //  Get the OpenGL object, for quick access.
             SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
-            gl.Enable(OpenGL.GL_TEXTURE_2D);
 
             renderer = new Renderer(gl);
         }
