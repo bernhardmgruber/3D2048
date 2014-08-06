@@ -237,10 +237,9 @@ namespace _3D2048.Logic
                         if (randomNull == nullCounter)
                         
                         {
-                            gameModel.field[i, j, l] = 2;
-
+                            Debug.Assert(gameModel.field[i, j, l] != 0);
+                            gameModel.field[i, j, l] = 2; // FIXME: this can overwrite following numbers
                         }
-
                     }
                 }
             }
