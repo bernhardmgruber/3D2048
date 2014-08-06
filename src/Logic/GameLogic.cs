@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _3D2048.Util;
 
 namespace _3D2048.Logic
 {
@@ -13,6 +14,93 @@ namespace _3D2048.Logic
         public GameLogic()
         {
             gameModel = new GameState();
+        }
+
+        public Direction getMoveDependentDirection(Direction direction, Camera gameCamera)
+        {
+            Direction outputDirection = direction;
+
+            // REMOVEME: return only normal directions
+            return direction;
+
+            switch (gameCamera.getFrontFace())
+            {
+                case CubeFace.FRONT:
+                    // Directions don't need to be changed
+                    outputDirection = direction;
+                    break;
+                case CubeFace.LEFT:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else if (direction == Direction.Left)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                case CubeFace.BACK:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Left)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                case CubeFace.RIGHT:
+                    if (direction == Direction.Forward)
+                    {
+                        outputDirection = Direction.Right;
+                    }
+                    else if (direction == Direction.Back)
+                    {
+                        outputDirection = Direction.Left;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Back;
+                    }
+                    else if (direction == Direction.Right)
+                    {
+                        outputDirection = Direction.Forward;
+                    }
+                    else
+                    {
+                        outputDirection = direction; //Up/Down: No change
+                    }
+                    break;
+                default:
+                    outputDirection = direction;
+                    break;
+            }
+
+            return outputDirection;
         }
 
         public void Move(Direction direction)
