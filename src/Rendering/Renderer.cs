@@ -23,7 +23,7 @@ namespace _3D2048.Rendering
 
 
         Texture texture = new Texture();
-        String texturePath = "texture_2.bmp";
+        String texturePath = "textures/2.bmp";
 
         private int gameMatrixSize = 4; //to be replaced
    
