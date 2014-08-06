@@ -111,11 +111,11 @@ namespace _3D2048.Logic
             {
                 case Logic.Direction.Right:
 
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < GameState.size - 1; i++)
                     {
-                        for (int j = 0; j < 4; j++)
+                        for (int j = 0; j < GameState.size; j++)
                         {
-                            for (int l = 0; l < 4; l++)
+                            for (int l = 0; l < GameState.size; l++)
                             {
                               if (gameModel.field[i+1, j, l] == 0)
                                 {
@@ -136,11 +136,11 @@ namespace _3D2048.Logic
 
                 case Logic.Direction.Left:
 
-                     for (int i = 3; i > 0; i--)
+                    for (int i = GameState.size - 1; i > 0; i--)
                     {
-                        for (int j = 0; j < 4; j++)
+                        for (int j = 0; j < GameState.size; j++)
                         {
-                            for (int l = 0; l < 4; l++)
+                            for (int l = 0; l < GameState.size; l++)
                             {
                               if (gameModel.field[i-1, j, l] == 0)
                                 {
@@ -161,11 +161,11 @@ namespace _3D2048.Logic
 
                 case Logic.Direction.Up:
 
-                    for (int j = 0; j < 3; j++)
+                    for (int j = 0; j < GameState.size - 1; j++)
                     {
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < GameState.size; i++)
                         {
-                            for (int l = 0; l < 4; l++)
+                            for (int l = 0; l < GameState.size; l++)
                             {
                               if (gameModel.field[i, j+1, l] == 0)
                                 {
@@ -186,11 +186,11 @@ namespace _3D2048.Logic
 
                 case Logic.Direction.Down:
 
-                      for (int j = 3; j > 0; j--)
+                    for (int j = GameState.size - 1; j > 0; j--)
                     {
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < GameState.size; i++)
                         {
-                            for (int l = 0; l < 4; l++)
+                            for (int l = 0; l < GameState.size; l++)
                             {
                               if (gameModel.field[i, j-1, l] == 0)
                                 {
@@ -211,11 +211,11 @@ namespace _3D2048.Logic
 
                 case Logic.Direction.Back:
 
-                    for (int l = 3; l > 0; l--)
+                    for (int l = GameState.size - 1; l > 0; l--)
                     {
-                        for (int j = 0; j < 4; j++)
+                        for (int j = 0; j < GameState.size; j++)
                         {
-                            for (int i = 0; i < 4; i++)
+                            for (int i = 0; i < GameState.size; i++)
                             {
                                 if (gameModel.field[i, j, l-1] == 0)
                                 {
@@ -237,11 +237,11 @@ namespace _3D2048.Logic
                     break;
                 case Logic.Direction.Forward:
 
-                    for (int l = 0; l < 3; l++)
+                    for (int l = 0; l < GameState.size - 1; l++)
                     {
-                        for (int j = 0; j < 4; j++)
+                        for (int j = 0; j < GameState.size; j++)
                         {
-                            for (int i = 0; i < 4; i++)
+                            for (int i = 0; i < GameState.size; i++)
                             {
                                 if (gameModel.field[i, j, l+1] == 0)
                                 {
@@ -264,11 +264,11 @@ namespace _3D2048.Logic
 
             bool freeField = false;
 
-            for (int l = 0; l < 4; l++)
+            for (int l = 0; l < GameState.size; l++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < GameState.size; j++)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < GameState.size; i++)
                     {
                         if (gameModel.field[i, j, l] == 0)
                         {
@@ -292,11 +292,11 @@ namespace _3D2048.Logic
             Random random = new Random();
             int nullCounter = 0;
 
-            for (int l = 0; l < 4; l++)
+            for (int l = 0; l < GameState.size; l++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < GameState.size; j++)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < GameState.size; i++)
                     {
                         if (gameModel.field[i, j, l] == 0)
                         {
@@ -310,11 +310,11 @@ namespace _3D2048.Logic
             int randomNull = random.Next(0, nullCounter);
             nullCounter = 0;
 
-            for (int l = 0; l < 4; l++)
+            for (int l = 0; l < GameState.size; l++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < GameState.size; j++)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < GameState.size; i++)
                     {
                         if (gameModel.field[i, j, l] == 0)
                         {
