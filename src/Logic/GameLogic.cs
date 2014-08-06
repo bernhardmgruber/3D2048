@@ -37,7 +37,7 @@ namespace _3D2048.Logic
                         outputDirection = Direction.Left;
                     }
                     else if (direction == Direction.Back)
-                    {
+                   {
                         outputDirection = Direction.Right;
                     }
                     else if (direction == Direction.Right)

@@ -45,7 +45,10 @@ namespace _3D2048.Util
             }
             else return CubeFace.FRONT;
         }
-
+        public void resetCamera()
+        {
+            cubeRotation = new Vector3D(0.0f, 0.0f, 0.0f);
+        }
 
     }
 

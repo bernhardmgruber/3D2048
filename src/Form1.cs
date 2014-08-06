@@ -121,6 +121,10 @@ namespace _3D2048
                 case Keys.PageDown:
                     gameLogic.Move(gameLogic.getMoveDependentDirection(Direction.Back, gameCamera));
                     break;
+                case Keys.Home:
+                case Keys.Space:
+                    gameCamera.resetCamera();
+                    break;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
