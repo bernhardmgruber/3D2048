@@ -14,16 +14,17 @@ namespace _3D2048.Rendering
     class Renderer
     {
         private OpenGL gl;
+        private Textures textures;
 
         public Renderer(OpenGL glIn)
         {
             gl = glIn;
+            textures = new Textures(gl);
         }
 
 
 
-        Texture texture = new Texture();
-        String texturePath = "texture_2.bmp";
+        
 
         private int gameMatrixSize = 4; //to be replaced
    
@@ -48,7 +49,7 @@ namespace _3D2048.Rendering
                         {
                             gl.PushMatrix();
                             gl.Translate(-gameMatrixSize / 2 + 0.5 + i, -gameMatrixSize / 2 + 0.5 + j, -gameMatrixSize / 2 + 0.5 + k);
-                            drawCube();
+                            drawCube(state.field[i, j, k]);
                             gl.PopMatrix();
                         }
                     }
@@ -59,9 +60,9 @@ namespace _3D2048.Rendering
 
 
 
-        private void drawCube()
+        private void drawCube(int number)
         {
-            texture.Create(gl, texturePath);
+            Texture texture = textures.get(number);
 
             //  Bind the texture.
             texture.Bind(gl);
