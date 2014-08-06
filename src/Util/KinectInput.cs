@@ -13,7 +13,6 @@ namespace _3D2048.Util
 {
     class KinectInput
     {
-
         private KinectSensor sensor;
         private GameLogic logic;
         private Camera cam;
@@ -28,7 +27,6 @@ namespace _3D2048.Util
 
         public void KinectStart()
         {
-
             // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
             foreach (KinectSensor potentialSensor in KinectSensor.KinectSensors)
             {
@@ -110,8 +108,5 @@ namespace _3D2048.Util
         {
             return new Vector3D(point.X, point.Y, point.Z);
         }
-
-
-
     }
 }

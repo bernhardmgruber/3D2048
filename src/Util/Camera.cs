@@ -8,16 +8,8 @@ namespace _3D2048.Util
 {
     class Camera
     {
-        public Vector3D cubeRotation
-        {
-            get;
-            set;
-        }
-        public float zoom
-        {
-            get;
-            set;
-        }
+        public Vector3D cubeRotation { get; set; }
+        public float zoom { get; set; }
 
         public Camera()
         {
@@ -45,8 +37,6 @@ namespace _3D2048.Util
             }
             else return CubeFace.FRONT;
         }
-
-
     }
 
     enum CubeFace

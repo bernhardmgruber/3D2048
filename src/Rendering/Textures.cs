@@ -51,14 +51,9 @@ namespace _3D2048.Rendering
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
             g.DrawString(number.ToString(), new Font("Tahoma", (int)(0.2 * b.Width)), Brushes.Black, rect, sf);
-
             g.Flush();
 
-
-
-
             Texture t = new Texture();
-
             t.Create(this.gl, b);
             return t;
         }

@@ -22,14 +22,10 @@ namespace _3D2048.Rendering
             textures = new Textures(gl);
         }
 
-
         private int gameMatrixSize = 4; //to be replaced
-   
 
         public void draw(Camera camera, GameState state)
         {
-
-
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.LoadIdentity();
             gl.Translate(0.0f, 0.0f, camera.zoom);
@@ -53,9 +49,6 @@ namespace _3D2048.Rendering
                 }
             }
         }
-
-
-
 
         private void drawCube(int number)
         {
@@ -107,9 +100,6 @@ namespace _3D2048.Rendering
             gl.End();
 
             gl.Flush();
-
-
-
         }
     }
 }

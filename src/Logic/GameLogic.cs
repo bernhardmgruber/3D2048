@@ -14,8 +14,6 @@ namespace _3D2048.Logic
         public GameLogic()
         {
             gameModel = new GameState();
-           
-
         }
 
         public Direction getMoveDependentDirection(Direction direction, Camera gameCamera)
@@ -330,10 +328,6 @@ namespace _3D2048.Logic
                     }
                 }
             }
-
-
-     
-             
         }
     }
 }
