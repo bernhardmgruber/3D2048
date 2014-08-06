@@ -23,7 +23,6 @@ namespace _3D2048.Rendering
         }
 
 
-        private int gameMatrixSize = 4; //to be replaced
    
 
         public void draw(Camera camera, GameState state)
@@ -36,16 +35,16 @@ namespace _3D2048.Rendering
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
             gl.Color(1.0f,1.0f,1.0f);
 
-            for (int i = 0; i < gameMatrixSize; i++)
+            for (int i = 0; i < GameState.size; i++)
             {
-                for (int j = 0; j < gameMatrixSize; j++)
+                for (int j = 0; j < GameState.size; j++)
                 {
-                    for (int k = 0; k < gameMatrixSize; k++)
+                    for (int k = 0; k < GameState.size; k++)
                     {
                         if (state.field[i, j, k] != 0)
                         {
                             gl.PushMatrix();
-                            gl.Translate(-gameMatrixSize / 2 + 0.5 + i, -gameMatrixSize / 2 + 0.5 + j, -gameMatrixSize / 2 + 0.5 + k);
+                            gl.Translate(-GameState.size / 2 + 0.5 + i, -GameState.size / 2 + 0.5 + j, -GameState.size / 2 + 0.5 + k);
                             drawCube(state.field[i, j, k]);
                             gl.PopMatrix();
                         }
