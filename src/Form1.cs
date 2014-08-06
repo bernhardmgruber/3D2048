@@ -116,10 +116,10 @@ namespace _3D2048
                     gameLogic.Move(gameLogic.getMoveDependentDirection(Direction.Right, gameCamera));
                     break;
                 case Keys.PageUp:
-                    gameLogic.Move(gameLogic.getMoveDependentDirection(Direction.Forward, gameCamera));
+                    gameLogic.Move(gameLogic.getMoveDependentDirection(Direction.Back, gameCamera));
                     break;
                 case Keys.PageDown:
-                    gameLogic.Move(gameLogic.getMoveDependentDirection(Direction.Back, gameCamera));
+                    gameLogic.Move(gameLogic.getMoveDependentDirection(Direction.Forward, gameCamera));
                     break;
                 case Keys.Home:
                 case Keys.Space:
