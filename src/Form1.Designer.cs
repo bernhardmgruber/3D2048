@@ -67,6 +67,7 @@
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "3D2048";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
