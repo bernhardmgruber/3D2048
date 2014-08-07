@@ -40,23 +40,26 @@ namespace _3D2048.Rendering
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
             gl.Color(1.0f,1.0f,1.0f,0.45f);
 
-            for (int i = 0; i < GameState.size; i++)
-            {
-                for (int j = 0; j < GameState.size; j++)
+            //while (!state.lost && !state.won)
+            //{
+                for (int i = 0; i < GameState.size; i++)
                 {
-                    for (int k = 0; k < GameState.size; k++)
+                    for (int j = 0; j < GameState.size; j++)
                     {
-                        if (state.field[i, j, k] != 0)
+                        for (int k = 0; k < GameState.size; k++)
                         {
-                            gl.PushMatrix();
-                            gl.Translate(-GameState.size / 2 + 0.5 + i, -GameState.size / 2 + 0.5 + j, -GameState.size / 2 + 0.5 + k);
-                            drawCube(state.field[i, j, k]);
-                            gl.PopMatrix();
+                            if (state.field[i, j, k] != 0)
+                            {
+                                gl.PushMatrix();
+                                gl.Translate(-GameState.size / 2 + 0.5 + i, -GameState.size / 2 + 0.5 + j, -GameState.size / 2 + 0.5 + k);
+                                drawCube(state.field[i, j, k]);
+                                gl.PopMatrix();
+                            }
                         }
                     }
-                }
+                //}
+                gl.DepthMask(1);
             }
-            gl.DepthMask(1);
         }
 
 
@@ -115,6 +118,17 @@ namespace _3D2048.Rendering
 
 
 
+        }
+
+        private void checkState(bool won) {
+            if (won)
+            {
+
+            }
+            else 
+            {
+
+            }        
         }
     }
 }
