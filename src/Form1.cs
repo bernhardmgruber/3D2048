@@ -140,5 +140,26 @@ namespace _3D2048
         {
 
         }
+
+        private void openGLControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openGLControl1_Resized(object sender, EventArgs e)
+        {
+            OpenGL gl = this.openGLControl1.OpenGL;
+            gl.MatrixMode(OpenGL.GL_PROJECTION);
+            gl.LoadIdentity();
+            double w = (double)openGLControl1.Width;
+            double h = (double)openGLControl1.Height;
+            if (h == 0) 
+            {
+                h = 1;
+            }
+            
+            gl.Perspective(Camera.fieldOfView, w/h, 1, 100);
+            gl.MatrixMode(OpenGL.GL_MODELVIEW);
+        }
     }
 }

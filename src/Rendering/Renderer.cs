@@ -51,8 +51,10 @@ namespace _3D2048.Rendering
                             if (state.field[i, j, k] != 0)
                             {
                                 gl.PushMatrix();
-                                gl.Translate(-GameState.size / 2 + 0.5 + i, -GameState.size / 2 + 0.5 + j, -GameState.size / 2 + 0.5 + k);
-                                drawCube(state.field[i, j, k]);
+                                Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i,-GameState.size / 2.0f + 0.5f + j,-GameState.size / 2.0f + 0.5f + k);
+                                gl.Translate(cubeData.x,cubeData.y,cubeData.z);
+                                int cubeValue = state.field[i, j, k];
+                                drawCube(cubeValue);
                                 gl.PopMatrix();
                             }
                         }
@@ -73,7 +75,7 @@ namespace _3D2048.Rendering
             texture.Bind(gl);
 
             Vector3D color = Util.Color.getTileColor(number);
-            gl.Color(color.x, color.y, color.z, 0.45f);
+            gl.Color(color.x, color.y, color.z, 0.7f);
 
             gl.Begin(OpenGL.GL_QUADS);
 

@@ -9,6 +9,9 @@ namespace _3D2048.Util
 {
     class Camera
     {
+
+        public const double fieldOfView = 45;
+
         public Vector3D cubeRotation
         {
             get;
