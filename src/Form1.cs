@@ -189,7 +189,7 @@ namespace _3D2048
 
         private void splashButton_Click(object sender, EventArgs e)
         {
-            //gameLogic.reset();
+            gameLogic.reset();
             hideSplash();
         }
     }

@@ -246,5 +246,10 @@ namespace _3D2048.Logic
             }
 
         }
+
+        public void reset()
+        {
+            gameModel = new GameState();
+        }
     }
 }
