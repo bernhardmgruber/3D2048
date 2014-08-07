@@ -42,7 +42,7 @@ namespace _3D2048
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
 
-
+            //showSplash("3D 2048", "Start");
             initOpenGL();
     
         }
@@ -55,8 +55,29 @@ namespace _3D2048
             renderer = new Renderer(gl);
         }
 
+        public void showSplash(String label, String button)
+        {
+            splashLabel.Parent = openGLControl1;
+            splashLabel.BackColor = System.Drawing.Color.Transparent;
+            splashLabel.Text = label;
+            splashLabel.Location = new Point((this.Width-splashLabel.Width) / 2, (this.Height-splashLabel.Width) / 2);
+            splashButton.Parent = openGLControl1;
+            splashButton.BackColor = System.Drawing.Color.Transparent;
+            splashButton.Text = button;
+            splashButton.Location = new Point((this.Width - splashButton.Width) / 2, (this.Height - splashButton.Height) / 2);
+            splashButton.Visible = true;
+            splashLabel.Visible = true;
+        }
+
+        public void hideSplash()
+        {
+            splashButton.Visible = false;
+            splashLabel.Visible = false;
+        }
+
         public void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
         {
+            if (gameLogic.gameModel.lost) showSplash("Game Over!", "Restart");
             renderer.draw(gameCamera,gameLogic.gameModel);
         }
 
@@ -148,6 +169,9 @@ namespace _3D2048
 
         private void openGLControl1_Resized(object sender, EventArgs e)
         {
+            splashLabel.Location = new Point((this.Width - splashLabel.Width) / 2, (this.Height - splashLabel.Width) / 2);
+            splashButton.Location = new Point((this.Width - splashButton.Width) / 2, (this.Height - splashButton.Height) / 2);
+
             OpenGL gl = this.openGLControl1.OpenGL;
             gl.MatrixMode(OpenGL.GL_PROJECTION);
             gl.LoadIdentity();
@@ -160,6 +184,12 @@ namespace _3D2048
             
             gl.Perspective(Camera.fieldOfView, w/h, 1, 100);
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
+        }
+
+        private void splashButton_Click(object sender, EventArgs e)
+        {
+            //gameLogic.reset();
+            hideSplash();
         }
     }
 }
