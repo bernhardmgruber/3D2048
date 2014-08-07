@@ -22,7 +22,7 @@ namespace _3D2048.Logic
             Direction outputDirection = direction;
 
             // REMOVEME: return only normal directions
-            return direction;
+            //return direction;
 
             switch (gameCamera.getFrontFace())
             {
@@ -87,7 +87,7 @@ namespace _3D2048.Logic
                     {
                         outputDirection = Direction.Back;
                     }
-                    else if (direction == Direction.Right)
+                    else if (direction == Direction.Left)
                     {
                         outputDirection = Direction.Forward;
                     }

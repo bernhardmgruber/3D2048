@@ -31,13 +31,17 @@ namespace _3D2048.Util
 
         public CubeFace getFrontFace()
         {
+            while (cubeRotation.y < 0)
+            {
+                cubeRotation.y = 360 - cubeRotation.y;
+            }
             if (cubeRotation.y > 315 || cubeRotation.y <= 45)
             {
                 return CubeFace.FRONT;
             }
             else if (cubeRotation.y > 45 && cubeRotation.y <= 135)
             {
-                return CubeFace.RIGHT;
+                return CubeFace.LEFT;
             }
             else if (cubeRotation.y > 135 && cubeRotation.y <= 225)
             {
@@ -45,7 +49,7 @@ namespace _3D2048.Util
             }
             else if (cubeRotation.y > 225 && cubeRotation.y <= 315)
             {
-                return CubeFace.LEFT;
+                return CubeFace.RIGHT;
             }
             else return CubeFace.FRONT;
         }
