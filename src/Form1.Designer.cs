@@ -86,6 +86,7 @@
             this.splashButton.Size = new System.Drawing.Size(139, 52);
             this.splashButton.TabIndex = 2;
             this.splashButton.UseVisualStyleBackColor = false;
+            this.splashButton.Visible = false;
             this.splashButton.Click += new System.EventHandler(this.splashButton_Click);
             // 
             // Form1

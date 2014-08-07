@@ -78,6 +78,7 @@ namespace _3D2048
         public void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
         {
             if (gameLogic.gameModel.lost) showSplash("Game Over!", "Restart");
+            if (gameLogic.gameModel.won) showSplash("Well Done!", "Restart");
             renderer.draw(gameCamera,gameLogic.gameModel);
         }
 
