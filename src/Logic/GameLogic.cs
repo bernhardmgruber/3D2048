@@ -223,21 +223,23 @@ namespace _3D2048.Logic
 
             int randomNull = random.Next(0, nullCounter);
             nullCounter = 0;
-
-            for (int l = 0; l < GameState.size; l++)
+            bool nullSet = false;
+            for (int l = 0; l < GameState.size && nullSet == false; l++)
             {
-                for (int j = 0; j < GameState.size; j++)
+                for (int j = 0; j < GameState.size && nullSet == false; j++)
                 {
-                    for (int i = 0; i < GameState.size; i++)
-                    {
+                    for (int i = 0; i < GameState.size && nullSet == false; i++)
+                    { 
                         if (gameModel.field[i, j, l] == 0)
                         {
+                            if (randomNull == nullCounter)
+                            {
+                                nullSet = true;
+                                Debug.Assert(gameModel.field[i, j, l] == 0);
+                                gameModel.field[i, j, l] = 2; // FIXME: this can overwrite following number 
+
+                            }
                             nullCounter++;
-                        }
-                        if (randomNull == nullCounter)
-                        {
-                            Debug.Assert(gameModel.field[i, j, l] == 0);
-                            gameModel.field[i, j, l] = 2; // FIXME: this can overwrite following numbers
                         }
                     }
                 }
