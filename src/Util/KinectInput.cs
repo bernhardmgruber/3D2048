@@ -20,6 +20,10 @@ namespace _3D2048.Util
         private bool watchMovement = false;
         private bool moveRight = false;
         private bool moveLeft = false;
+        private bool moveUp = false;
+        private bool moveDown = false;
+        private bool moveForward = false;
+        private bool moveBack = false;
 
         public KinectInput(GameLogic logic, Camera cam)
         {
@@ -83,37 +87,60 @@ namespace _3D2048.Util
             if (skeletons.Length > 0)
             {
                 Skeleton workingSkeleton = skeletons[0];
-                Joint rightHand = workingSkeleton.Joints[JointType.HandRight];
-                Joint rightShoulder = workingSkeleton.Joints[JointType.ShoulderRight];
-                float triggerDistance = workingSkeleton.Joints[JointType.ShoulderRight].Position.X - workingSkeleton.Joints[JointType.ShoulderLeft].Position.X;
+                Vector3D rightHand = convertSkeletonPoint(workingSkeleton.Joints[JointType.HandRight].Position);
+                Vector3D rightShoulder = convertSkeletonPoint(workingSkeleton.Joints[JointType.ShoulderRight].Position);
+                float triggerDistance = (rightShoulder - convertSkeletonPoint(workingSkeleton.Joints[JointType.ShoulderLeft].Position)).Length;
+                Vector3D handShoulderVector = rightHand - rightShoulder;
                 if (watchMovement)
                 {
-                    if (rightHand.Position.X > rightShoulder.Position.X && (convertSkeletonPoint(rightHand.Position) - convertSkeletonPoint(rightShoulder.Position)).Length < triggerDistance && moveRight)
+                    if (rightHand.x > rightShoulder.x && handShoulderVector.y < handShoulderVector.x && handShoulderVector.Length < triggerDistance && moveRight)
                     {
                         Console.WriteLine("kinect move right exec");
                         logic.Move(logic.getMoveDependentDirection(Direction.Right, cam));
                         moveRight = false;
                     }
-                    else if (rightHand.Position.X > rightShoulder.Position.X && (convertSkeletonPoint(rightHand.Position) - convertSkeletonPoint(rightShoulder.Position)).Length > triggerDistance)
+                    else if (rightHand.x > rightShoulder.x && handShoulderVector.y < handShoulderVector.x && handShoulderVector.Length > triggerDistance)
                     {
                         Console.WriteLine("kinect move right init");
                         moveRight = true;
                     }
-                    else if (rightHand.Position.X < rightShoulder.Position.X && (convertSkeletonPoint(rightHand.Position) - convertSkeletonPoint(rightShoulder.Position)).Length < triggerDistance && moveLeft)
+                    else if (rightHand.x < rightShoulder.x && handShoulderVector.y < handShoulderVector.x && handShoulderVector.Length < triggerDistance && moveLeft)
                     {
                         Console.WriteLine("kinect move left exec");
                         logic.Move(logic.getMoveDependentDirection(Direction.Left, cam));
                         moveLeft = false;
                     }
-                    else if (rightHand.Position.X < rightShoulder.Position.X && (convertSkeletonPoint(rightHand.Position) - convertSkeletonPoint(rightShoulder.Position)).Length > triggerDistance)
+                    else if (rightHand.x < rightShoulder.x && handShoulderVector.y < handShoulderVector.x && handShoulderVector.Length > triggerDistance)
                     {
                         Console.WriteLine("kinect move left init");
                         moveLeft = true;
                     }
+                    else if (rightHand.y > rightShoulder.y && handShoulderVector.y > handShoulderVector.x && handShoulderVector.Length < triggerDistance && moveUp)
+                    {
+                        Console.WriteLine("kinect move up exec");
+                        logic.Move(logic.getMoveDependentDirection(Direction.Up, cam));
+                        moveUp = false;
+                    }
+                    else if (rightHand.y > rightShoulder.y && handShoulderVector.y > handShoulderVector.x && handShoulderVector.Length > triggerDistance)
+                    {
+                        Console.WriteLine("kinect move up init");
+                        moveUp = true;
+                    }
+                    else if (rightHand.y < rightShoulder.y && handShoulderVector.y > handShoulderVector.x && handShoulderVector.Length < triggerDistance && moveDown)
+                    {
+                        Console.WriteLine("kinect move down exec");
+                        logic.Move(logic.getMoveDependentDirection(Direction.Down, cam));
+                        moveDown = false;
+                    }
+                    else if (rightHand.y < rightShoulder.y && handShoulderVector.y > handShoulderVector.x && handShoulderVector.Length > triggerDistance)
+                    {
+                        Console.WriteLine("kinect move down init");
+                        moveDown = true;
+                    }
                 }
                 else
                 {
-                    if (rightHand.Position.Y > rightShoulder.Position.Y && (convertSkeletonPoint(rightHand.Position) - convertSkeletonPoint(rightShoulder.Position)).Length > triggerDistance)
+                    if (rightHand.y > rightShoulder.y && handShoulderVector.Length > triggerDistance)
                     {
                         Console.WriteLine("watch movement");
                         watchMovement = true;
