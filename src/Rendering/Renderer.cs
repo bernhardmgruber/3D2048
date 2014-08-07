@@ -64,13 +64,21 @@ namespace _3D2048.Rendering
                         {
                             Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i, -GameState.size / 2.0f + 0.5f + j, -GameState.size / 2.0f + 0.5f + k);  //Calculates and saves a single cubes object coord center on the world coordinates  
                             int cubeValue = state.field[i, j, k];                                                                                                       //Saves Value of a Cube from the current Position in the gamestate Matrix
-                            float depth = cubeData * new Vector3D(mv[2], mv[6], mv[10]);                                                                                    //Generates The Depth of the Cube Relative to the Modelview Matrix with the dot Product of the cube values and teh Modelview Matrix Parameters
+                            
+                            //Adds The Modelmatrix to all Points of the Cube                                                   
+                            Vector3D transformedCubeOrigin = new Vector3D(
+                                cubeData * new Vector3D(mv[0], mv[4], mv[8])  + mv[12],
+                                cubeData * new Vector3D(mv[1], mv[5], mv[9])  + mv[13],
+                                cubeData * new Vector3D(mv[2], mv[6], mv[10]) + mv[14]);
+
+                            float depth = transformedCubeOrigin.Length;
+  
                             values.Add(new Tuple<Vector3D, int, float>(cubeData, cubeValue, depth));                                                                    //The List is fed with the Position, Value and depth of the Cubes
                         }
                     }
                 }
             }
-            values.Sort((a, b) => a.Item3.CompareTo(b.Item3)); //List is sorted by depth
+            values.Sort((a, b) => -a.Item3.CompareTo(b.Item3)); //List is sorted by depth
             gl.DepthMask(0);    //Depth Mask is deactivated
 
             //Cubes are Drawn seperately before World Coordinates are Repositioned
