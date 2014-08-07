@@ -10,10 +10,11 @@ namespace _3D2048.Logic
 {
     class GameLogic
     {
-        public GameState gameModel  {get; private set;}
-
+        public GameState gameModel { get; private set; }
+        public Random random;
         public GameLogic()
         {
+            random = new Random();
             gameModel = new GameState();
         }
 
@@ -36,7 +37,7 @@ namespace _3D2048.Logic
                         outputDirection = Direction.Left;
                     }
                     else if (direction == Direction.Back)
-                   {
+                    {
                         outputDirection = Direction.Right;
                     }
                     else if (direction == Direction.Right)
@@ -109,8 +110,11 @@ namespace _3D2048.Logic
         /// </summary>
         /// <param name="axis">The axis along to collapse. Must be 0, 1 or 2 (for x, y, and z)</param>
         /// <param name="stepDir">Either +1 or -1 for the direction in which to collapse</param>
-        private void collapse(int axis, int stepDir) 
+        /// <param name="simulate"> If false, the field isn't modified.</param>
+        /// <returns>Returns true if a modification has been made.</returns>
+        private bool collapse(int axis, int stepDir, bool simulate)
         {
+            bool modified = false;
             int[] pos = new int[3];
             int[] nextPos = new int[3];
 
@@ -119,10 +123,10 @@ namespace _3D2048.Logic
             {
                 for (int j = 0; j < GameState.size; j++)
                 {
-                    bool modified;
+                    bool stackModified;
                     do
                     {
-                        modified = false;
+                        stackModified = false;
 
                         pos[axis] = stepDir > 0 ? GameState.size - 1 : 0;
                         pos[(axis + 1) % 3] = i;
@@ -136,12 +140,19 @@ namespace _3D2048.Logic
 
                             if (gameModel.field[pos[0], pos[1], pos[2]] == 0)
                             {
-                                if(gameModel.field[nextPos[0], nextPos[1], nextPos[2]] != 0)
+                                if (gameModel.field[nextPos[0], nextPos[1], nextPos[2]] != 0)
                                 {
                                     // move number from next to pos
-                                    gameModel.field[pos[0], pos[1], pos[2]] = gameModel.field[nextPos[0], nextPos[1], nextPos[2]];
-                                    gameModel.field[nextPos[0], nextPos[1], nextPos[2]] = 0;
-                                    modified = true;
+
+                                    if (!simulate)
+                                    {
+                                        gameModel.field[pos[0], pos[1], pos[2]] = gameModel.field[nextPos[0], nextPos[1], nextPos[2]];
+                                        gameModel.field[nextPos[0], nextPos[1], nextPos[2]] = 0;
+                                        stackModified = true;
+                                    }
+                                    else
+                                        return true;
+                                    
                                 }
                             }
                             else if (gameModel.field[pos[0], pos[1], pos[2]] == gameModel.field[nextPos[0], nextPos[1], nextPos[2]]) // previous condition ensures that pos and nextPos are not 0
@@ -149,62 +160,51 @@ namespace _3D2048.Logic
                                 Debug.Assert(gameModel.field[pos[0], pos[1], pos[2]] != 0);
 
                                 // combine numbers into pos
-                                gameModel.field[pos[0], pos[1], pos[2]] *= 2;
-                                gameModel.score += gameModel.field[pos[0], pos[1], pos[2]]; 
-                                gameModel.field[nextPos[0], nextPos[1], nextPos[2]] = 0;
-                                modified = true;
+                                if (!simulate)
+                                {
+                                    gameModel.field[pos[0], pos[1], pos[2]] *= 2;
+                                    gameModel.score += gameModel.field[pos[0], pos[1], pos[2]];
+                                    gameModel.field[nextPos[0], nextPos[1], nextPos[2]] = 0;
+                                    stackModified = true;
+                                }
+                                else
+                                    return true;
                             }
 
                             Array.Copy(nextPos, pos, 3);
                         }
                     }
-                    while (modified);
+                    while (stackModified);
+
+                    if (stackModified == true)
+                    {
+                        modified = true;
+                    }
+
                 }
             }
+            return modified;
         }
 
-        public void Move(Direction direction)
+        public bool collapse(Direction direction, bool simulate = false)
         {
-            // collapse current numbers
             switch (direction)
             {
-                case Logic.Direction.Right:   collapse(0, +1); break;
-                case Logic.Direction.Left:    collapse(0, -1); break;
-                case Logic.Direction.Up:      collapse(1, +1); break;
-                case Logic.Direction.Down:    collapse(1, -1); break;
-                case Logic.Direction.Back:    collapse(2, -1); break;
-                case Logic.Direction.Forward: collapse(2, +1); break;
+                case Logic.Direction.Right:   return collapse(0, +1, simulate);
+                case Logic.Direction.Left:    return collapse(0, -1, simulate);
+                case Logic.Direction.Up:      return collapse(1, +1, simulate);
+                case Logic.Direction.Down:    return collapse(1, -1, simulate);
+                case Logic.Direction.Back:    return collapse(2, -1, simulate);
+                case Logic.Direction.Forward: return collapse(2, +1, simulate);
+                default: return false;
             }
 
-            // randomly insert a new 2
-            bool freeField = false;
-
-            for (int l = 0; l < GameState.size; l++)
-            {
-                for (int j = 0; j < GameState.size; j++)
-                {
-                    for (int i = 0; i < GameState.size; i++)
-                    {
-                        if (gameModel.field[i, j, l] == 0)
-                        {
-                            freeField = true;
-                        }
-                        
-                        else if(gameModel.field[i, j, l] == 2048)
-                        {
-                            gameModel.won = true;
-                        }
-                    }
-                }
-            }
-
-            if (freeField == false)
-            {
-
-                gameModel.lost = true;
-            }
-
-            Random random = new Random();
+        }
+        public void Move(Direction direction)
+        {
+            collapse(direction);
+       
+            // loss/win and count zeros
             int nullCounter = 0;
 
             for (int l = 0; l < GameState.size; l++)
@@ -217,11 +217,15 @@ namespace _3D2048.Logic
                         {
                             nullCounter++;
                         }
-
+                        else if (gameModel.field[i, j, l] == 2048)
+                        {
+                            gameModel.won = true;
+                        }
                     }
                 }
             }
-
+           
+            // randomly insert a new 2
             int randomNull = random.Next(0, nullCounter);
             nullCounter = 0;
             bool nullSet = false;
@@ -230,15 +234,15 @@ namespace _3D2048.Logic
                 for (int j = 0; j < GameState.size && nullSet == false; j++)
                 {
                     for (int i = 0; i < GameState.size && nullSet == false; i++)
-                    { 
+                    {
                         if (gameModel.field[i, j, l] == 0)
                         {
+
                             if (randomNull == nullCounter)
                             {
                                 nullSet = true;
                                 Debug.Assert(gameModel.field[i, j, l] == 0);
-                                gameModel.field[i, j, l] = 2; // FIXME: this can overwrite following number 
-
+                                gameModel.field[i, j, l] = 2;
                             }
                             nullCounter++;
                         }
@@ -246,6 +250,15 @@ namespace _3D2048.Logic
                 }
             }
 
+            //simulate all possible next moves
+            gameModel.lost = true;
+            foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+            {
+                if (collapse(dir, true) == true)
+                {
+                    gameModel.lost = false;
+                }
+            }
         }
 
         public void reset()
