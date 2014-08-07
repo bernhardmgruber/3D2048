@@ -15,7 +15,7 @@ namespace _3D2048.Rendering
     {
         //Declaration of necessary objects
         private OpenGL gl;
-        private Textures textures;      
+        private Textures textures;
 
 
         public Renderer(OpenGL glIn)
@@ -26,7 +26,7 @@ namespace _3D2048.Rendering
 
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);    //Enables Textures
-            gl.Enable(OpenGL.GL_CULL_FACE );    //Removes the Backside of the Cubes
+            gl.Enable(OpenGL.GL_CULL_FACE);    //Removes the Backside of the Cubes
 
             //Removal of all unwanted colours
             gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
@@ -47,7 +47,7 @@ namespace _3D2048.Rendering
             gl.Color(1.0f, 1.0f, 1.0f, 0.45f);                                              //Base Color with alpha(transparency) value
 
             //Gettting of the OpenGL Modelview Matrix Parameters
-            float[] mv = new float[16]; 
+            float[] mv = new float[16];
             gl.GetFloat(OpenGL.GL_MODELVIEW_MATRIX, mv);
 
             //Setup of a new List of Tuples(for multiple Parameters) to store Cube information
@@ -64,7 +64,7 @@ namespace _3D2048.Rendering
                         {
                             Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i, -GameState.size / 2.0f + 0.5f + j, -GameState.size / 2.0f + 0.5f + k);  //Calculates and saves a single cubes object coord center on the world coordinates  
                             int cubeValue = state.field[i, j, k];                                                                                                       //Saves Value of a Cube from the current Position in the gamestate Matrix
-                            float depth = cubeData*new Vector3D(mv[2],mv[6],mv[10]);                                                                                    //Generates The Depth of the Cube Relative to the Modelview Matrix with the dot Product of the cube values and teh Modelview Matrix Parameters
+                            float depth = cubeData * new Vector3D(mv[2], mv[6], mv[10]);                                                                                    //Generates The Depth of the Cube Relative to the Modelview Matrix with the dot Product of the cube values and teh Modelview Matrix Parameters
                             values.Add(new Tuple<Vector3D, int, float>(cubeData, cubeValue, depth));                                                                    //The List is fed with the Position, Value and depth of the Cubes
                         }
                     }
@@ -74,7 +74,7 @@ namespace _3D2048.Rendering
             gl.DepthMask(0);    //Depth Mask is deactivated
 
             //Cubes are Drawn seperately before World Coordinates are Repositioned
-            foreach (var cube in values) 
+            foreach (var cube in values)
             {
                 gl.PushMatrix();
                 gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
@@ -137,5 +137,6 @@ namespace _3D2048.Rendering
             gl.End();
 
         }
+    }
 
 }
