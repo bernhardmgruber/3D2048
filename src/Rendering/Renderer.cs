@@ -16,6 +16,7 @@ namespace _3D2048.Rendering
         private OpenGL gl;
         private Textures textures;
 
+
         public Renderer(OpenGL glIn)
         {
             gl = glIn;
@@ -25,43 +26,53 @@ namespace _3D2048.Rendering
             gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
         }
 
-   
+
 
         public void draw(Camera camera, GameState state)
         {
 
 
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-            gl.DepthMask(0);
             gl.Enable(OpenGL.GL_BLEND);
             gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
             gl.LoadIdentity();
             gl.Translate(0.0f, 0.0f, camera.zoom);
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
-            gl.Color(1.0f,1.0f,1.0f,0.45f);
+            gl.Color(1.0f, 1.0f, 1.0f, 0.45f);
 
-            //while (!state.lost && !state.won)
-            //{
-                for (int i = 0; i < GameState.size; i++)
+            float[] mv = new float[16];
+            gl.GetFloat(OpenGL.GL_MODELVIEW_MATRIX, mv);
+
+            List<Tuple<Vector3D, int, float>> values = new List<Tuple<Vector3D, int, float>>();
+
+            for (int i = 0; i < GameState.size; i++)
+            {
+                for (int j = 0; j < GameState.size; j++)
                 {
-                    for (int j = 0; j < GameState.size; j++)
+                    for (int k = 0; k < GameState.size; k++)
                     {
-                        for (int k = 0; k < GameState.size; k++)
+                        if (state.field[i, j, k] != 0)
                         {
-                            if (state.field[i, j, k] != 0)
-                            {
-                                gl.PushMatrix();
-                                Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i,-GameState.size / 2.0f + 0.5f + j,-GameState.size / 2.0f + 0.5f + k);
-                                gl.Translate(cubeData.x,cubeData.y,cubeData.z);
-                                int cubeValue = state.field[i, j, k];
-                                drawCube(cubeValue);
-                                gl.PopMatrix();
-                            }
+                            Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i, -GameState.size / 2.0f + 0.5f + j, -GameState.size / 2.0f + 0.5f + k);
+                            int cubeValue = state.field[i, j, k];
+                            float depth = cubeData*new Vector3D(mv[2],mv[6],mv[10]);
+                            values.Add(new Tuple<Vector3D, int, float>(cubeData, cubeValue, depth));
                         }
                     }
-                //}
-                gl.DepthMask(1);
+                }
             }
+            values.Sort((a, b) => a.Item3.CompareTo(b.Item3));
+            gl.DepthMask(0);
+
+            foreach (var cube in values) 
+            {
+                gl.PushMatrix();
+                gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
+                drawCube(cube.Item2);
+
+                gl.PopMatrix();
+            }
+            gl.DepthMask(1);
         }
 
 
@@ -86,7 +97,7 @@ namespace _3D2048.Rendering
             gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, 0.5f, 0.5f);	// Top Left Of The Texture and Quad
 
             // Back Face
-            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);	// Bottom Right Of The Texture and Quad
+            gl.TexCoord(1.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);// Bottom Right Of The Texture and Quad
             gl.TexCoord(1.0f, 0.0f); gl.Vertex(-0.5f, 0.5f, -0.5f);	// Top Right Of The Texture and Quad
             gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.5f, 0.5f, -0.5f);	// Top Left Of The Texture and Quad
             gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.5f, -0.5f, -0.5f);	// Bottom Left Of The Texture and Quad
@@ -116,21 +127,18 @@ namespace _3D2048.Rendering
             gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, 0.5f, -0.5f);	// Top Left Of The Texture and Quad
             gl.End();
 
-            gl.Flush();
-
-
-
         }
 
-        private void checkState(bool won) {
+        private void checkState(bool won)
+        {
             if (won)
             {
 
             }
-            else 
+            else
             {
 
-            }        
+            }
         }
     }
 }

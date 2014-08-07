@@ -45,5 +45,10 @@ namespace _3D2048.Util
             return new Vector3D(vec1.x - vec2.x, vec1.y - vec2.y, vec1.z - vec2.z);
         }
 
+        public static float operator*(Vector3D vector1, Vector3D vector2) 
+        {
+            return vector1.x * vector2.x + vector1.y * vector2.y + vector1.z * vector2.z;             
+        }
+
     }
 }
