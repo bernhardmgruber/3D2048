@@ -41,6 +41,7 @@ namespace _3D2048
 
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
+            this.scoreLablel.Parent = openGLControl1;
 
             //showSplash("3D 2048", "Start");
             initOpenGL();
@@ -79,6 +80,7 @@ namespace _3D2048
         {
             if (gameLogic.gameModel.lost) showSplash("Game Over!", "Restart");
             if (gameLogic.gameModel.won) showSplash("Well Done!", "Restart");
+            scoreLablel.Text = "Score: " + gameLogic.gameModel.score;
             renderer.draw(gameCamera,gameLogic.gameModel);
         }
 

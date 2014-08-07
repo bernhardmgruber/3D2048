@@ -160,16 +160,15 @@ namespace _3D2048.Logic
                                 Debug.Assert(gameModel.field[pos[0], pos[1], pos[2]] != 0);
 
                                 // combine numbers into pos
-
                                 if (!simulate)
                                 {
                                     gameModel.field[pos[0], pos[1], pos[2]] *= 2;
+                                    gameModel.score += gameModel.field[pos[0], pos[1], pos[2]];
                                     gameModel.field[nextPos[0], nextPos[1], nextPos[2]] = 0;
                                     stackModified = true;
                                 }
                                 else
                                     return true;
-                                
                             }
 
                             Array.Copy(nextPos, pos, 3);
