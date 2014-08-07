@@ -25,8 +25,9 @@ namespace _3D2048.Rendering
             textures = new Textures(gl);
 
 
-            gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.Enable(OpenGL.GL_CULL_FACE );
+            gl.Enable(OpenGL.GL_TEXTURE_2D);    //Enables Textures
+            gl.Enable(OpenGL.GL_CULL_FACE );    //Removes the Backside of the Cubes
+
             //Removal of all unwanted colours
             gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
         }
@@ -43,7 +44,7 @@ namespace _3D2048.Rendering
             gl.LoadIdentity();
             gl.Translate(0.0f, 0.0f, camera.zoom);
             gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
-            gl.Color(1.0f, 1.0f, 1.0f, 0.45f); //Base Color with alpha(transparency) value
+            gl.Color(1.0f, 1.0f, 1.0f, 0.45f);                                              //Base Color with alpha(transparency) value
 
             //Gettting of the OpenGL Modelview Matrix Parameters
             float[] mv = new float[16]; 
@@ -61,26 +62,26 @@ namespace _3D2048.Rendering
                     {
                         if (state.field[i, j, k] != 0)
                         {
-                            Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i, -GameState.size / 2.0f + 0.5f + j, -GameState.size / 2.0f + 0.5f + k); //Calculates and saves a single cubes object coord center on the world coordinates  
-                            int cubeValue = state.field[i, j, k]; //Saves Value of a Cube from the current Position in the gamestate Matrix
-                            float depth = cubeData*new Vector3D(mv[2],mv[6],mv[10]); //
-                            values.Add(new Tuple<Vector3D, int, float>(cubeData, cubeValue, depth));
+                            Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i, -GameState.size / 2.0f + 0.5f + j, -GameState.size / 2.0f + 0.5f + k);  //Calculates and saves a single cubes object coord center on the world coordinates  
+                            int cubeValue = state.field[i, j, k];                                                                                                       //Saves Value of a Cube from the current Position in the gamestate Matrix
+                            float depth = cubeData*new Vector3D(mv[2],mv[6],mv[10]);                                                                                    //Generates The Depth of the Cube Relative to the Modelview Matrix with the dot Product of the cube values and teh Modelview Matrix Parameters
+                            values.Add(new Tuple<Vector3D, int, float>(cubeData, cubeValue, depth));                                                                    //The List is fed with the Position, Value and depth of the Cubes
                         }
                     }
                 }
             }
-            values.Sort((a, b) => a.Item3.CompareTo(b.Item3));
-            gl.DepthMask(0);
+            values.Sort((a, b) => a.Item3.CompareTo(b.Item3)); //List is sorted by depth
+            gl.DepthMask(0);    //Depth Mask is deactivated
 
+            //Cubes are Drawn seperately before World Coordinates are Repositioned
             foreach (var cube in values) 
             {
                 gl.PushMatrix();
                 gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
                 drawCube(cube.Item2);
-
                 gl.PopMatrix();
             }
-            gl.DepthMask(1);
+            gl.DepthMask(1); //Depth Mask is reaxtivated
         }
 
 
@@ -117,7 +118,7 @@ namespace _3D2048.Rendering
             gl.TexCoord(1.0f, 0.0f); gl.Vertex(0.5f, 0.5f, -0.5f);	// Top Right Of The Texture and Quad
 
             // Bottom Face
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);	// Top Right Of The Texture and Quad
+            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);// Top Right Of The Texture and Quad
             gl.TexCoord(1.0f, 1.0f); gl.Vertex(0.5f, -0.5f, -0.5f);	// Top Left Of The Texture and Quad
             gl.TexCoord(1.0f, 0.0f); gl.Vertex(0.5f, -0.5f, 0.5f);	// Bottom Left Of The Texture and Quad
             gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, -0.5f, 0.5f);	// Bottom Right Of The Texture and Quad
@@ -129,7 +130,7 @@ namespace _3D2048.Rendering
             gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.5f, -0.5f, 0.5f);	// Bottom Left Of The Texture and Quad
 
             // Left Face
-            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);	// Bottom Left Of The Texture and Quad
+            gl.TexCoord(0.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, -0.5f);// Bottom Left Of The Texture and Quad
             gl.TexCoord(1.0f, 1.0f); gl.Vertex(-0.5f, -0.5f, 0.5f);	// Bottom Right Of The Texture and Quad
             gl.TexCoord(1.0f, 0.0f); gl.Vertex(-0.5f, 0.5f, 0.5f);	// Top Right Of The Texture and Quad
             gl.TexCoord(0.0f, 0.0f); gl.Vertex(-0.5f, 0.5f, -0.5f);	// Top Left Of The Texture and Quad
@@ -137,16 +138,4 @@ namespace _3D2048.Rendering
 
         }
 
-        private void checkState(bool won)
-        {
-            if (won)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-    }
 }
