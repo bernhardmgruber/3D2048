@@ -64,6 +64,16 @@ namespace _3D2048
             splashLabel.Visible = true;
         }
 
+        public void showPause()
+        {
+            pauseLabel.Visible = true;
+        }
+
+        public void hidePause()
+        {
+            pauseLabel.Visible = false;
+        }
+
         public void hideSplash()
         {
             splashButton.Visible = false;
@@ -76,6 +86,10 @@ namespace _3D2048
                 showSplash("Game Over!", "Restart");
             if (gameLogic.gameModel.won)
                 showSplash("Well Done!", "Restart");
+            if (gameLogic.gameModel.pause)
+                showPause();
+            else
+                hidePause();
             renderer.draw(gameCamera,gameLogic.gameModel);
         }
 
@@ -127,6 +141,9 @@ namespace _3D2048
                 case Keys.Home:
                 case Keys.Space:
                     gameCamera.resetCamera();
+                    break;
+                case Keys.Pause:
+                    gameLogic.pause();
                     break;
             }
 

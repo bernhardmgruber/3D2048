@@ -112,12 +112,12 @@
             this.pauseLabel.TabIndex = 4;
             this.pauseLabel.Text = "Pause";
             this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pauseLabel.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 412);
             this.ClientSize = new System.Drawing.Size(723, 486);
             this.Controls.Add(this.pauseLabel);
             this.Controls.Add(this.scoreLablel);

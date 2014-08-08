@@ -263,5 +263,15 @@ namespace _3D2048.Logic
         {
             gameModel = new GameState();
         }
+
+        public void pause()
+        {
+            gameModel.pause = true;
+        }
+
+        public void resume()
+        {
+            gameModel.pause = false;
+        }
     }
 }
