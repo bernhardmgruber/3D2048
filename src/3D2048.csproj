@@ -79,6 +79,7 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\Camera.cs" />
+    <Compile Include="Util\GameStateSerializer.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\KinectInput.cs" />
     <Compile Include="Util\Cuboid.cs" />

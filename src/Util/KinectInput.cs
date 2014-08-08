@@ -111,43 +111,44 @@ namespace _3D2048.Util
                     {
                         Console.WriteLine("Pausing " + (triggerDistance / 8).ToString());
                         watchMovement = false;
+                        logic.pause();
                         return;
                     }
 
                     if (rightHand.x > rightShoulder.x + (triggerDistance / 2) && !moveTriggered) // Right movement
                     {
                         Console.WriteLine("EXEC right");
-                        logic.Move(Direction.Right);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Right, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.x < rightShoulder.x - (triggerDistance) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC left");
-                        logic.Move(Direction.Left);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Left, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.y > rightShoulder.y + (triggerDistance / 1.5) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC up");
-                        logic.Move(Direction.Up);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Up, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.y < rightShoulder.y - triggerDistance && !moveTriggered)
                     {
                         Console.WriteLine("EXEC down");
-                        logic.Move(Direction.Down);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Down, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.z < rightShoulder.z - (triggerDistance * 1.5) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC back");
-                        logic.Move(Direction.Back);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Back, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.z > rightShoulder.z - (triggerDistance / 1.5) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC fwd");
-                        logic.Move(Direction.Forward);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Forward, cam));
                         moveTriggered = true;
                     }
                     else if ((rightHand.x < rightShoulder.x + (triggerDistance / 1.9)) &&
@@ -176,11 +177,28 @@ namespace _3D2048.Util
                 }
                 else
                 {
-                    if (rightHand.y > rightShoulder.y + (triggerDistance / 2))
+                    if (rightHand.y > rightShoulder.y + (triggerDistance))
                     {
                         Console.WriteLine("watch movement");
                         watchMovement = true;
+                        moveTriggered = true;
+                        logic.resume();
+                        logic.gameModel.started = true;
                         System.Threading.Thread.Sleep(100);
+                    }
+                    else if (rightHand.y > rightShoulder.y - (triggerDistance / 2) && !moveTriggered)
+                    {
+                        logic.gameModel.pauseNextButton = true;
+                        moveTriggered = true;
+                    }
+                    else if (leftHand.z < leftShoulder.z - (triggerDistance * 1.5))
+                    {
+                        logic.gameModel.pausePressButton = true;
+                        moveTriggered = true;
+                    }
+                    else if (rightHand.y < rightShoulder.y - (triggerDistance / 2))
+                    {
+                        moveTriggered = false;
                     }
                 }
 
