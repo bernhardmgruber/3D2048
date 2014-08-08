@@ -8,7 +8,6 @@ using SharpGL;
 using SharpGL.SceneGraph.Assets;
 using _3D2048.Util;
 using _3D2048.Logic;
-using GlmNet;
 using System.Diagnostics;
 
 namespace _3D2048.Rendering
@@ -18,7 +17,7 @@ namespace _3D2048.Rendering
         //Declaration of necessary objects
         private OpenGL gl;
         private Textures textures;
-
+        private uint listId;
 
         public Renderer(OpenGL glIn)
         {
@@ -26,12 +25,16 @@ namespace _3D2048.Rendering
             gl = glIn;
             textures = new Textures(gl);
 
-
             gl.Enable(OpenGL.GL_TEXTURE_2D);    //Enables Textures
             gl.Enable(OpenGL.GL_CULL_FACE);    //Removes the Backside of the Cubes
 
             //Removal of all unwanted colours
             gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
+
+            listId = gl.GenLists(1);
+            gl.NewList(listId, OpenGL.GL_COMPILE);
+            drawCube();
+            gl.EndList();
         }
 
         public float toRadians(float value)
@@ -103,7 +106,8 @@ namespace _3D2048.Rendering
                 gl.Color(color.x, color.y, color.z, 0.7f);
 
                 // draw
-                drawCube();
+                //drawCube();
+                gl.CallList(listId);
 
                 //gl.PopMatrix();
             }
