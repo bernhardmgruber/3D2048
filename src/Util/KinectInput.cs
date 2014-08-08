@@ -118,37 +118,37 @@ namespace _3D2048.Util
                     if (rightHand.x > rightShoulder.x + (triggerDistance / 2) && !moveTriggered) // Right movement
                     {
                         Console.WriteLine("EXEC right");
-                        logic.Move(Direction.Right);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Right, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.x < rightShoulder.x - (triggerDistance) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC left");
-                        logic.Move(Direction.Left);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Left, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.y > rightShoulder.y + (triggerDistance / 1.5) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC up");
-                        logic.Move(Direction.Up);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Up, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.y < rightShoulder.y - triggerDistance && !moveTriggered)
                     {
                         Console.WriteLine("EXEC down");
-                        logic.Move(Direction.Down);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Down, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.z < rightShoulder.z - (triggerDistance * 1.5) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC back");
-                        logic.Move(Direction.Back);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Back, cam));
                         moveTriggered = true;
                     }
                     else if (rightHand.z > rightShoulder.z - (triggerDistance / 1.5) && !moveTriggered)
                     {
                         Console.WriteLine("EXEC fwd");
-                        logic.Move(Direction.Forward);
+                        logic.Move(logic.getMoveDependentDirection(Direction.Forward, cam));
                         moveTriggered = true;
                     }
                     else if ((rightHand.x < rightShoulder.x + (triggerDistance / 1.9)) &&
@@ -163,12 +163,12 @@ namespace _3D2048.Util
                     }
 
                     // Left hand: Rotate
-                    if (leftHand.x < leftShoulder.x - (triggerDistance / 2))
+                    if (leftHand.x < leftShoulder.x - (triggerDistance))
                     {
                         Vector3D vect = new Vector3D(0, -2,0);
                         cam.cubeRotation += vect;
                     }
-                    else if (leftHand.x > leftShoulder.x + (triggerDistance / 2))
+                    else if (leftHand.x > leftShoulder.x + (triggerDistance))
                     {
                         Vector3D vect = new Vector3D(0, 2, 0);
                         cam.cubeRotation += vect;
