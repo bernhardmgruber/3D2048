@@ -12,12 +12,12 @@ namespace _3D2048.Rendering
 {
     class Textures
     {
-        String texturePath = "textures/base.bmp";
+        //public String texturePath = "textures/base.bmp";
         OpenGL gl;
         Bitmap baseBitmap;
         Dictionary<int, Texture> cachedTextures;
 
-        public Textures(OpenGL gl)
+        public Textures(OpenGL gl, String texturePath)
         {
             cachedTextures = new Dictionary<int, Texture>();
             this.gl = gl;

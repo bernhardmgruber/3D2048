@@ -25,15 +25,15 @@ namespace _3D2048.Util
 
         public Camera()
         {
-            cubeRotation = new Vector3D(0, 0, 0);
-            zoom = -GameState.size*1.75f;
+            cubeRotation = new Vector3D(10, 0, 0);
+            zoom = -GameState.size*1.85f;
         }
 
         public CubeFace getFrontFace()
         {
             while (cubeRotation.y < 0)
             {
-                cubeRotation.y = 360 - cubeRotation.y;
+                cubeRotation.y = 360 + cubeRotation.y;
             }
             if (cubeRotation.y > 315 || cubeRotation.y <= 45)
             {
