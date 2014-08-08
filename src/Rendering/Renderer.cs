@@ -8,6 +8,8 @@ using SharpGL;
 using SharpGL.SceneGraph.Assets;
 using _3D2048.Util;
 using _3D2048.Logic;
+using GlmNet;
+using System.Diagnostics;
 
 namespace _3D2048.Rendering
 {
@@ -32,23 +34,28 @@ namespace _3D2048.Rendering
             gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
         }
 
-
+        public float toRadians(float value)
+        {
+            return value / 180f * (float)Math.PI;
+        }
 
         public void draw(Camera camera, GameState state)
         {
-
             //Setup of the gl Object in conjunction with camera Settings
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.Enable(OpenGL.GL_BLEND);
             gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            gl.LoadIdentity();
-            gl.Translate(0.0f, 0.0f, camera.zoom);
-            gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
+            //gl.LoadIdentity();
+            //gl.Translate(0.0f, 0.0f, camera.zoom);
+            //gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
             gl.Color(1.0f, 1.0f, 1.0f, 0.45f);                                              //Base Color with alpha(transparency) value
 
-            //Gettting of the OpenGL Modelview Matrix Parameters
-            float[] mv = new float[16];
-            gl.GetFloat(OpenGL.GL_MODELVIEW_MATRIX, mv);
+            // create modelview matrix from camera
+            Matrix4D mv = Matrix4D.Identity();
+            mv = mv * Matrix4D.Translate(new Vector3D(0, 0, camera.zoom));
+            mv = mv * Matrix4D.RotateX(-toRadians(camera.cubeRotation.x));
+            mv = mv * Matrix4D.RotateY(-toRadians(camera.cubeRotation.y));
+            mv = mv * Matrix4D.RotateZ(-toRadians(camera.cubeRotation.z));
 
             //Setup of a new List of Tuples(for multiple Parameters) to store Cube information
             List<Tuple<Vector3D, int, float>> values = new List<Tuple<Vector3D, int, float>>();
@@ -67,9 +74,9 @@ namespace _3D2048.Rendering
                             
                             //Adds The Modelmatrix to all Points of the Cube                                                   
                             Vector3D transformedCubeOrigin = new Vector3D(
-                                cubeData * new Vector3D(mv[0], mv[4], mv[8])  + mv[12],
-                                cubeData * new Vector3D(mv[1], mv[5], mv[9])  + mv[13],
-                                cubeData * new Vector3D(mv[2], mv[6], mv[10]) + mv[14]);
+                                cubeData * new Vector3D(mv[0, 0], mv[1, 0], mv[2, 0]) + mv[3, 0],
+                                cubeData * new Vector3D(mv[0, 1], mv[1, 1], mv[2, 1]) + mv[3, 1],
+                                cubeData * new Vector3D(mv[0, 2], mv[1, 2], mv[2, 2]) + mv[3, 2]);
 
                             float depth = transformedCubeOrigin.Length;
   
@@ -84,27 +91,27 @@ namespace _3D2048.Rendering
             //Cubes are Drawn seperately before World Coordinates are Repositioned
             foreach (var cube in values)
             {
-                gl.PushMatrix();
-                gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
-                drawCube(cube.Item2);
-                gl.PopMatrix();
+                //gl.PushMatrix();
+                //gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
+                Matrix4D m = mv * Matrix4D.Translate(new Vector3D(cube.Item1.x, cube.Item1.y, cube.Item1.z));
+                gl.LoadMatrixf(m.toArray());
+
+                //  Bind the texture.
+                textures.get(cube.Item2).Bind(gl);
+
+                Vector3D color = Util.Color.getTileColor(cube.Item2);
+                gl.Color(color.x, color.y, color.z, 0.7f);
+
+                // draw
+                drawCube();
+
+                //gl.PopMatrix();
             }
             gl.DepthMask(1); //Depth Mask is reaxtivated
         }
 
-
-
-
-        private void drawCube(int number)
+        private void drawCube()
         {
-            Texture texture = textures.get(number);
-
-            //  Bind the texture.
-            texture.Bind(gl);
-
-            Vector3D color = Util.Color.getTileColor(number);
-            gl.Color(color.x, color.y, color.z, 0.7f);
-
             gl.Begin(OpenGL.GL_QUADS);
 
             // Front Face
