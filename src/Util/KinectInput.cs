@@ -177,7 +177,7 @@ namespace _3D2048.Util
                 }
                 else
                 {
-                    if (rightHand.y > rightShoulder.y + (triggerDistance / 2))
+                    if (rightHand.y > rightShoulder.y + (triggerDistance))
                     {
                         Console.WriteLine("watch movement");
                         watchMovement = true;
@@ -185,6 +185,20 @@ namespace _3D2048.Util
                         logic.resume();
                         logic.gameModel.started = true;
                         System.Threading.Thread.Sleep(100);
+                    }
+                    else if (rightHand.y > rightShoulder.y - (triggerDistance / 2) && !moveTriggered)
+                    {
+                        logic.gameModel.pauseNextButton = true;
+                        moveTriggered = true;
+                    }
+                    else if (leftHand.z < leftShoulder.z - (triggerDistance * 1.5))
+                    {
+                        logic.gameModel.pausePressButton = true;
+                        moveTriggered = true;
+                    }
+                    else if (rightHand.y < rightShoulder.y - (triggerDistance / 2))
+                    {
+                        moveTriggered = false;
                     }
                 }
 
