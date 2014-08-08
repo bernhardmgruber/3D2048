@@ -39,8 +39,10 @@
             // 
             // openGLControl1
             // 
+            this.openGLControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.openGLControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.openGLControl1.DrawFPS = true;
             this.openGLControl1.FrameRate = 28;
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
@@ -48,7 +50,7 @@
             this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
             this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-            this.openGLControl1.Size = new System.Drawing.Size(723, 486);
+            this.openGLControl1.Size = new System.Drawing.Size(723, 413);
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
             this.openGLControl1.Resized += new System.EventHandler(this.openGLControl1_Resized);
@@ -105,7 +107,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 486);
+            this.ClientSize = new System.Drawing.Size(723, 412);
             this.Controls.Add(this.scoreLablel);
             this.Controls.Add(this.splashButton);
             this.Controls.Add(this.splashLabel);

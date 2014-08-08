@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using _3D2048.Util;
 using _3D2048.Rendering;
@@ -25,7 +26,7 @@ namespace _3D2048
         private _3D2048.Logic.GameLogic gameLogic;
 
         private Renderer renderer;
-
+        private Settings settings;
         private bool mouseIsMoving;
         private Vector3D lastMousePosition;
         private Camera gameCamera;
@@ -44,6 +45,8 @@ namespace _3D2048
             this.scoreLablel.Parent = openGLControl1;
 
             //showSplash("3D 2048", "Start");
+            settings = new Settings(this);
+            settings.Show();
             initOpenGL();
     
         }
@@ -52,8 +55,8 @@ namespace _3D2048
         {
             //  Get the OpenGL object, for quick access.
             SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
-
-            renderer = new Renderer(gl);
+            Textures textures = new Textures(gl, settings.texturePath);
+            renderer = new Renderer(gl, textures);
         }
 
         public void showSplash(String label, String button)
@@ -188,6 +191,12 @@ namespace _3D2048
         {
             gameLogic.reset();
             hideSplash();
+        }
+
+        public void applySettings()
+        {
+            Textures textures = new Textures(openGLControl1.OpenGL, settings.texturePath);
+            renderer.textures = textures;
         }
     }
 }

@@ -15,14 +15,14 @@ namespace _3D2048.Rendering
     {
         //Declaration of necessary objects
         private OpenGL gl;
-        private Textures textures;
+        public Textures textures;
 
 
-        public Renderer(OpenGL glIn)
+        public Renderer(OpenGL glIn, Textures textures)
         {
             //Generates Textures for input OpenGL Object
             gl = glIn;
-            textures = new Textures(gl);
+            this.textures = textures;
 
 
             gl.Enable(OpenGL.GL_TEXTURE_2D);    //Enables Textures
