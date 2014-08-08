@@ -50,7 +50,7 @@
             this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControl1.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-            this.openGLControl1.Size = new System.Drawing.Size(723, 413);
+            this.openGLControl1.Size = new System.Drawing.Size(723, 486);
             this.openGLControl1.TabIndex = 0;
             this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
             this.openGLControl1.Resized += new System.EventHandler(this.openGLControl1_Resized);
