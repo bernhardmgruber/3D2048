@@ -99,6 +99,14 @@ namespace _3D2048.Util
                 if (watchMovement)
                 {
 
+                    // Pausing
+                    if (leftHand.y > leftShoulder.y + (triggerDistance / 2))
+                    {
+                        Console.WriteLine("Pausing " + (triggerDistance / 8).ToString());
+                        watchMovement = false;
+                        return;
+                    }
+
                     if (rightHand.x > rightShoulder.x + (triggerDistance / 2) && !moveTriggered) // Right movement
                     {
                         Console.WriteLine("EXEC right");
@@ -147,13 +155,17 @@ namespace _3D2048.Util
                     }
 
                     // Left hand: Rotate
-                    if (leftHand.x < leftShoulder.x - (triggerDistance) && !rotateTriggered)
+                    if (leftHand.x < leftShoulder.x - (triggerDistance))
                     {
-                        Vector3D vect = new Vector3D(0, -90,0);
+                        Vector3D vect = new Vector3D(0, -2,0);
                         cam.cubeRotation += vect;
-                        rotateTriggered = true;
                     }
-                    else if(leftHand.x > leftShoulder.x - (triggerDistance / 1.5))
+                    else if (leftHand.x > leftShoulder.x + (triggerDistance))
+                    {
+                        Vector3D vect = new Vector3D(0, 2, 0);
+                        cam.cubeRotation += vect;
+                    }
+                    else if (leftHand.x > leftShoulder.x - (triggerDistance / 1.5))
                     {
                         rotateTriggered = false;
                     }
@@ -161,10 +173,11 @@ namespace _3D2048.Util
                 }
                 else
                 {
-                    if (rightHand.y > rightShoulder.y && handShoulderVector.Length > triggerDistance)
+                    if (rightHand.y > rightShoulder.y + (triggerDistance / 2))
                     {
                         Console.WriteLine("watch movement");
                         watchMovement = true;
+                        System.Threading.Thread.Sleep(100);
                     }
                 }
 
