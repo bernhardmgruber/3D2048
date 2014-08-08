@@ -34,6 +34,7 @@
             this.splashLabel = new System.Windows.Forms.Label();
             this.splashButton = new System.Windows.Forms.Button();
             this.scoreLablel = new System.Windows.Forms.Label();
+            this.pauseLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,11 +102,26 @@
             this.scoreLablel.TabIndex = 3;
             this.scoreLablel.Text = "Score";
             // 
+            // pauseLabel
+            // 
+            this.pauseLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pauseLabel.BackColor = System.Drawing.Color.Transparent;
+            this.pauseLabel.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLabel.Location = new System.Drawing.Point(286, 212);
+            this.pauseLabel.Name = "pauseLabel";
+            this.pauseLabel.Size = new System.Drawing.Size(139, 41);
+            this.pauseLabel.TabIndex = 4;
+            this.pauseLabel.Text = "Pause";
+            this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 486);
+            this.Controls.Add(this.pauseLabel);
             this.Controls.Add(this.scoreLablel);
             this.Controls.Add(this.splashButton);
             this.Controls.Add(this.splashLabel);
@@ -128,6 +144,7 @@
         private System.Windows.Forms.Label splashLabel;
         private System.Windows.Forms.Button splashButton;
         private System.Windows.Forms.Label scoreLablel;
+        private System.Windows.Forms.Label pauseLabel;
     }
 }
 

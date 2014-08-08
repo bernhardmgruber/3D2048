@@ -105,6 +105,7 @@ namespace _3D2048.Logic
             return outputDirection;
         }
 
+
         /// <summary>
         /// 
         /// </summary>
