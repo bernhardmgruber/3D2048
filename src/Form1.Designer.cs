@@ -93,10 +93,10 @@
             // 
             this.pauseLabel.BackColor = System.Drawing.Color.Transparent;
             this.pauseLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pauseLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLabel.Font = new System.Drawing.Font("Tahoma", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseLabel.Location = new System.Drawing.Point(0, 0);
             this.pauseLabel.Name = "pauseLabel";
-            this.pauseLabel.Size = new System.Drawing.Size(273, 41);
+            this.pauseLabel.Size = new System.Drawing.Size(384, 54);
             this.pauseLabel.TabIndex = 4;
             this.pauseLabel.Text = "Pause";
             this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -106,20 +106,21 @@
             this.pausePanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pausePanel.Controls.Add(this.label1);
             this.pausePanel.Controls.Add(this.pauseLabel);
-            this.pausePanel.Location = new System.Drawing.Point(236, 115);
+            this.pausePanel.Location = new System.Drawing.Point(191, 62);
             this.pausePanel.Name = "pausePanel";
-            this.pausePanel.Size = new System.Drawing.Size(273, 162);
+            this.pausePanel.Size = new System.Drawing.Size(384, 316);
             this.pausePanel.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 41);
+            this.label1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 54);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(273, 38);
+            this.label1.Size = new System.Drawing.Size(384, 129);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Raise right hand over your head\r\nor Press Pause";
+            this.label1.Text = "Raise right hand over your head\r\nor Press Pause to continue\r\nSelect menu with rig" +
+    "ht hand up\r\nand trigger with left hand push";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1

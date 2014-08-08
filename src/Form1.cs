@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections;
 
 using _3D2048.Util;
 using _3D2048.Rendering;
 using _3D2048.Logic;
 
 using SharpGL;
+using System.Collections.Generic;
 
 namespace _3D2048
 {
@@ -24,6 +26,7 @@ namespace _3D2048
         private Vector3D lastMousePosition;
         private Camera gameCamera;
         private KinectInput kinect;
+        private List<Button> pauseMenuButtons;
 
         public Form1()
         {
@@ -36,10 +39,14 @@ namespace _3D2048
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
 
+            pauseMenuButtons = new List<Button>();
+
             //showSplash("3D 2048", "Start");
             settings = new Settings(this);
             settings.Show();
             initOpenGL();
+
+            generateMenuButtons();
         }
 
         private void initOpenGL()
@@ -98,6 +105,16 @@ namespace _3D2048
             else
             {
                 hidePause();
+            }
+            if (gameLogic.gameModel.pauseNextButton)
+            {
+                nextMenuButton();
+                gameLogic.gameModel.pauseNextButton = false;
+            }
+            if (gameLogic.gameModel.pausePressButton)
+            {
+                pressMenuButton();
+                gameLogic.gameModel.pausePressButton = false;
             }
             renderer.draw(gameCamera,gameLogic.gameModel);
         }
@@ -161,6 +178,12 @@ namespace _3D2048
                         gameLogic.pause();
                     }
                     break;
+                case Keys.A:
+                    nextMenuButton();
+                    break;
+                case Keys.B:
+                    pressMenuButton();
+                    break;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -211,6 +234,75 @@ namespace _3D2048
         {
             Textures textures = new Textures(openGLControl1.OpenGL, settings.texturePath);
             renderer.textures = textures;
+        }
+
+        private void generateMenuButtons()
+        {
+            Button btnRestart = new Button();
+            btnRestart.Text = "Restart";
+            btnRestart.Dock = DockStyle.Bottom;
+            btnRestart.Height = 50;
+            btnRestart.Font = new System.Drawing.Font("Tahoma", 18, FontStyle.Regular);
+            btnRestart.Click += btnRestart_Click;
+            pauseMenuButtons.Add(btnRestart);
+            pausePanel.Controls.Add(btnRestart);
+
+            Button btnResume = new Button();
+            btnResume.Text = "Resume";
+            btnResume.Dock = DockStyle.Bottom;
+            btnResume.Height = 50;
+            btnResume.Font = new System.Drawing.Font("Tahoma", 18, FontStyle.Regular);
+            btnResume.Click += btnResume_Click;
+            pauseMenuButtons.Add(btnResume);
+            pausePanel.Controls.Add(btnResume);
+        }
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            gameLogic.reset();
+        }
+
+        private void btnResume_Click(object sender, EventArgs e)
+        {
+            gameLogic.resume();
+            gameLogic.gameModel.started = true;
+        }
+
+        private void nextMenuButton()
+        {
+            int currBtn = 0;
+            foreach (Button btn in pauseMenuButtons)
+            {
+                btn.BackColor = System.Drawing.SystemColors.Control;
+            }
+            foreach (Button btn in pauseMenuButtons)
+            {
+                if ((btn.Tag != null)&&(btn.Tag.ToString() == "curr"))
+                {
+                    btn.Tag = "";
+
+                    break;
+                }
+                currBtn++;
+            }
+            currBtn++;
+            if (currBtn > pauseMenuButtons.Count - 1)
+            {
+                currBtn = 0;
+            }
+            pauseMenuButtons[currBtn].Tag = "curr";
+            pauseMenuButtons[currBtn].BackColor = System.Drawing.Color.CornflowerBlue;
+        }
+
+        private void pressMenuButton()
+        {
+            foreach (Button btn in pauseMenuButtons)
+            {
+                if ((btn.Tag != null) && (btn.Tag.ToString() == "curr"))
+                {
+                    btn.PerformClick();
+                }
+            }
         }
     }
 }
