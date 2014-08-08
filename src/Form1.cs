@@ -151,7 +151,7 @@ namespace _3D2048
                     gameCamera.resetCamera();
                     break;
                 case Keys.Pause:
-                    if (gameLogic.gameModel.pause)
+                    if ((gameLogic.gameModel.pause)||(!gameLogic.gameModel.started))
                     {
                         gameLogic.resume();
                         gameLogic.gameModel.started = true;
