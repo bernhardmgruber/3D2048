@@ -33,7 +33,7 @@ namespace _3D2048.Util
         {
             while (cubeRotation.y < 0)
             {
-                cubeRotation.y = 360 - cubeRotation.y;
+                cubeRotation.y = 360 + cubeRotation.y;
             }
             if (cubeRotation.y > 315 || cubeRotation.y <= 45)
             {
