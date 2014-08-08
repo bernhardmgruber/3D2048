@@ -138,6 +138,11 @@ namespace _3D2048
             }
         }
 
+        private void openGLControl1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            gameCamera.zoom += e.Delta / 120;
+        }
+
         private void openGLControl1_MouseUp(object sender, MouseEventArgs e)
         {
             mouseIsMoving = false;
