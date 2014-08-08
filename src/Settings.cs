@@ -16,8 +16,8 @@ namespace _3D2048
         private Form1 parent;
         public String texturePath
         {
-            private set;
-            public get;
+            set;
+            get;
         }
 
 
