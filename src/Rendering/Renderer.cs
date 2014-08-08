@@ -112,6 +112,9 @@ namespace _3D2048.Rendering
                 //gl.PopMatrix();
             }
             gl.DepthMask(1); //Depth Mask is reaxtivated
+
+			// draw score
+			gl.DrawText(10, gl.RenderContextProvider.Height - 26, 1, 0, 0, "Arial", 16, "Score: " + state.score);
         }
 
         private void drawCube()

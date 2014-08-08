@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using _3D2048.Util;
 using _3D2048.Rendering;
 using _3D2048.Logic;
 
-
 using SharpGL;
-using SharpGL.SceneGraph.Assets;
 
 namespace _3D2048
 {
@@ -41,11 +34,9 @@ namespace _3D2048
 
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
-            this.scoreLablel.Parent = openGLControl1;
 
             //showSplash("3D 2048", "Start");
             initOpenGL();
-    
         }
 
         private void initOpenGL()
@@ -78,21 +69,11 @@ namespace _3D2048
 
         public void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
         {
-            if (gameLogic.gameModel.lost) showSplash("Game Over!", "Restart");
-            if (gameLogic.gameModel.won) showSplash("Well Done!", "Restart");
-            scoreLablel.Text = "Score: " + gameLogic.gameModel.score;
+            if (gameLogic.gameModel.lost)
+                showSplash("Game Over!", "Restart");
+            if (gameLogic.gameModel.won)
+                showSplash("Well Done!", "Restart");
             renderer.draw(gameCamera,gameLogic.gameModel);
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
         }
 
         private void openGLControl1_MouseDown(object sender, MouseEventArgs e)
