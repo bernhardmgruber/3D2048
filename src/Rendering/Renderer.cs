@@ -37,7 +37,7 @@ namespace _3D2048.Rendering
             gl.EndList();
         }
 
-        public float toRadians(float value)
+        public static float toRadians(float value)
         {
             return value / 180f * (float)Math.PI;
         }
@@ -76,10 +76,7 @@ namespace _3D2048.Rendering
                             int cubeValue = state.field[i, j, k];                                                                                                       //Saves Value of a Cube from the current Position in the gamestate Matrix
                             
                             //Adds The Modelmatrix to all Points of the Cube                                                   
-                            Vector3D transformedCubeOrigin = new Vector3D(
-                                cubeData * new Vector3D(mv[0, 0], mv[1, 0], mv[2, 0]) + mv[3, 0],
-                                cubeData * new Vector3D(mv[0, 1], mv[1, 1], mv[2, 1]) + mv[3, 1],
-                                cubeData * new Vector3D(mv[0, 2], mv[1, 2], mv[2, 2]) + mv[3, 2]);
+                            Vector3D transformedCubeOrigin = mv * cubeData;
 
                             float depth = transformedCubeOrigin.Length;
   

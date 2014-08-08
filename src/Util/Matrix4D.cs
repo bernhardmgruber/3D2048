@@ -31,7 +31,7 @@ namespace _3D2048.Util
             return result;
         }
 
-        public static Matrix4D operator *(Matrix4D a, Matrix4D b)
+        public static Matrix4D operator*(Matrix4D a, Matrix4D b)
         {
             Matrix4D r = new Matrix4D();
 
@@ -56,6 +56,15 @@ namespace _3D2048.Util
             r[3, 3] = a[0, 3] * b[3, 0] + a[1, 3] * b[3, 1] + a[2, 3] * b[3, 2] + a[3, 3] * b[3, 3];
 
             return r;
+        }
+
+        public static Vector3D operator *(Matrix4D m, Vector3D v)
+        {
+            return new Vector3D(
+                    v * new Vector3D(m[0, 0], m[1, 0], m[2, 0]) + m[3, 0],
+                    v * new Vector3D(m[0, 1], m[1, 1], m[2, 1]) + m[3, 1],
+                    v * new Vector3D(m[0, 2], m[1, 2], m[2, 2]) + m[3, 2]
+                );
         }
 
         public static Matrix4D Identity()
