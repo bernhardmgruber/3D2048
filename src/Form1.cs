@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -13,9 +8,7 @@ using _3D2048.Util;
 using _3D2048.Rendering;
 using _3D2048.Logic;
 
-
 using SharpGL;
-using SharpGL.SceneGraph.Assets;
 
 namespace _3D2048
 {
@@ -42,20 +35,18 @@ namespace _3D2048
 
             mouseIsMoving = false;
             lastMousePosition = new Vector3D(0, 0, 0);
-            this.scoreLablel.Parent = openGLControl1;
 
             //showSplash("3D 2048", "Start");
             settings = new Settings(this);
             settings.Show();
             initOpenGL();
-    
         }
 
         private void initOpenGL()
         {
             //  Get the OpenGL object, for quick access.
             SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
-            Textures textures = new Textures(gl, settings.texturePath);
+            Textures textures = new Textures(gl, settings.texturePath == null ? "textures/base.bmp" : settings.texturePath);
             renderer = new Renderer(gl, textures);
         }
 
@@ -81,21 +72,11 @@ namespace _3D2048
 
         public void openGLControl1_OpenGLDraw(object sender, RenderEventArgs e)
         {
-            if (gameLogic.gameModel.lost) showSplash("Game Over!", "Restart");
-            if (gameLogic.gameModel.won) showSplash("Well Done!", "Restart");
-            scoreLablel.Text = "Score: " + gameLogic.gameModel.score;
+            if (gameLogic.gameModel.lost)
+                showSplash("Game Over!", "Restart");
+            if (gameLogic.gameModel.won)
+                showSplash("Well Done!", "Restart");
             renderer.draw(gameCamera,gameLogic.gameModel);
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
         }
 
         private void openGLControl1_MouseDown(object sender, MouseEventArgs e)

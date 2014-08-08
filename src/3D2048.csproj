@@ -82,6 +82,7 @@
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\KinectInput.cs" />
     <Compile Include="Util\Cuboid.cs" />
+    <Compile Include="Util\Matrix4D.cs" />
     <Compile Include="Util\Vector3D.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

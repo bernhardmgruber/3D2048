@@ -8,6 +8,7 @@ using SharpGL;
 using SharpGL.SceneGraph.Assets;
 using _3D2048.Util;
 using _3D2048.Logic;
+using System.Diagnostics;
 
 namespace _3D2048.Rendering
 {
@@ -16,7 +17,7 @@ namespace _3D2048.Rendering
         //Declaration of necessary objects
         private OpenGL gl;
         public Textures textures;
-
+        private uint listId;
 
         public Renderer(OpenGL glIn, Textures textures)
         {
@@ -24,31 +25,40 @@ namespace _3D2048.Rendering
             gl = glIn;
             this.textures = textures;
 
-
             gl.Enable(OpenGL.GL_TEXTURE_2D);    //Enables Textures
             gl.Enable(OpenGL.GL_CULL_FACE);    //Removes the Backside of the Cubes
 
             //Removal of all unwanted colours
             gl.ClearColor(0.0f, 0.0f, 0.2f, 1.0f);
+
+            listId = gl.GenLists(1);
+            gl.NewList(listId, OpenGL.GL_COMPILE);
+            drawCube();
+            gl.EndList();
         }
 
-
+        public static float toRadians(float value)
+        {
+            return value / 180f * (float)Math.PI;
+        }
 
         public void draw(Camera camera, GameState state)
         {
-
             //Setup of the gl Object in conjunction with camera Settings
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.Enable(OpenGL.GL_BLEND);
             gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            gl.LoadIdentity();
-            gl.Translate(0.0f, 0.0f, camera.zoom);
-            gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
+            //gl.LoadIdentity();
+            //gl.Translate(0.0f, 0.0f, camera.zoom);
+            //gl.Rotate(camera.cubeRotation.x, camera.cubeRotation.y, camera.cubeRotation.z);
             gl.Color(1.0f, 1.0f, 1.0f, 0.45f);                                              //Base Color with alpha(transparency) value
 
-            //Gettting of the OpenGL Modelview Matrix Parameters
-            float[] mv = new float[16];
-            gl.GetFloat(OpenGL.GL_MODELVIEW_MATRIX, mv);
+            // create modelview matrix from camera
+            Matrix4D mv = Matrix4D.Identity();
+            mv = mv * Matrix4D.Translate(new Vector3D(0, 0, camera.zoom));
+            mv = mv * Matrix4D.RotateX(-toRadians(camera.cubeRotation.x));
+            mv = mv * Matrix4D.RotateY(-toRadians(camera.cubeRotation.y));
+            mv = mv * Matrix4D.RotateZ(-toRadians(camera.cubeRotation.z));
 
             //Setup of a new List of Tuples(for multiple Parameters) to store Cube information
             List<Tuple<Vector3D, int, float>> values = new List<Tuple<Vector3D, int, float>>();
@@ -66,10 +76,7 @@ namespace _3D2048.Rendering
                             int cubeValue = state.field[i, j, k];                                                                                                       //Saves Value of a Cube from the current Position in the gamestate Matrix
                             
                             //Adds The Modelmatrix to all Points of the Cube                                                   
-                            Vector3D transformedCubeOrigin = new Vector3D(
-                                cubeData * new Vector3D(mv[0], mv[4], mv[8])  + mv[12],
-                                cubeData * new Vector3D(mv[1], mv[5], mv[9])  + mv[13],
-                                cubeData * new Vector3D(mv[2], mv[6], mv[10]) + mv[14]);
+                            Vector3D transformedCubeOrigin = mv * cubeData;
 
                             float depth = transformedCubeOrigin.Length;
   
@@ -84,27 +91,31 @@ namespace _3D2048.Rendering
             //Cubes are Drawn seperately before World Coordinates are Repositioned
             foreach (var cube in values)
             {
-                gl.PushMatrix();
-                gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
-                drawCube(cube.Item2);
-                gl.PopMatrix();
+                //gl.PushMatrix();
+                //gl.Translate(cube.Item1.x, cube.Item1.y, cube.Item1.z);
+                Matrix4D m = mv * Matrix4D.Translate(new Vector3D(cube.Item1.x, cube.Item1.y, cube.Item1.z));
+                gl.LoadMatrixf(m.toArray());
+
+                //  Bind the texture.
+                textures.get(cube.Item2).Bind(gl);
+
+                Vector3D color = Util.Color.getTileColor(cube.Item2);
+                gl.Color(color.x, color.y, color.z, 0.7f);
+
+                // draw
+                //drawCube();
+                gl.CallList(listId);
+
+                //gl.PopMatrix();
             }
             gl.DepthMask(1); //Depth Mask is reaxtivated
+
+            // draw score
+            gl.DrawText(10, gl.RenderContextProvider.Height - 26, 1, 0, 0, "Arial", 16, "Score: " + state.score);
         }
 
-
-
-
-        private void drawCube(int number)
+        private void drawCube()
         {
-            Texture texture = textures.get(number);
-
-            //  Bind the texture.
-            texture.Bind(gl);
-
-            Vector3D color = Util.Color.getTileColor(number);
-            gl.Color(color.x, color.y, color.z, 0.7f);
-
             gl.Begin(OpenGL.GL_QUADS);
 
             // Front Face

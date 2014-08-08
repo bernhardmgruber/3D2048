@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openGLControl1 = new SharpGL.OpenGLControl();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.splashLabel = new System.Windows.Forms.Label();
             this.splashButton = new System.Windows.Forms.Button();
             this.scoreLablel = new System.Windows.Forms.Label();
@@ -49,7 +48,7 @@
             this.openGLControl1.Location = new System.Drawing.Point(0, 0);
             this.openGLControl1.Name = "openGLControl1";
             this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
-            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
+            this.openGLControl1.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
             this.openGLControl1.Size = new System.Drawing.Size(723, 413);
             this.openGLControl1.TabIndex = 0;
@@ -59,10 +58,6 @@
             this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseDown);
             this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseMove);
             this.openGLControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseUp);
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
             // splashLabel
             // 
@@ -122,12 +117,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(723, 412);
-=======
             this.ClientSize = new System.Drawing.Size(723, 486);
             this.Controls.Add(this.pauseLabel);
->>>>>>> Branch_be36e28108fc251d6c251d827f7ff9bca372402f
             this.Controls.Add(this.scoreLablel);
             this.Controls.Add(this.splashButton);
             this.Controls.Add(this.splashLabel);
@@ -137,7 +129,6 @@
             this.Name = "Form1";
             this.Text = "3D2048";
             this.Load += new System.EventHandler(this.Form1_Load_1);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -146,7 +137,6 @@
         private SharpGL.OpenGLControl openGLControl1;
 
         #endregion
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label splashLabel;
         private System.Windows.Forms.Button splashButton;
         private System.Windows.Forms.Label scoreLablel;
