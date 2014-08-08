@@ -15,6 +15,7 @@ namespace _3D2048.Logic
         public bool lost = false;
         public bool won = false;
         public bool pause = false;
+        public bool started = false;
      
     }
 }

@@ -34,7 +34,10 @@
             this.splashButton = new System.Windows.Forms.Button();
             this.scoreLablel = new System.Windows.Forms.Label();
             this.pauseLabel = new System.Windows.Forms.Label();
+            this.pausePanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
+            this.pausePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // openGLControl1
@@ -101,25 +104,45 @@
             // 
             // pauseLabel
             // 
-            this.pauseLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pauseLabel.BackColor = System.Drawing.Color.Transparent;
-            this.pauseLabel.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pauseLabel.Location = new System.Drawing.Point(286, 212);
+            this.pauseLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pauseLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLabel.Location = new System.Drawing.Point(0, 0);
             this.pauseLabel.Name = "pauseLabel";
-            this.pauseLabel.Size = new System.Drawing.Size(139, 41);
+            this.pauseLabel.Size = new System.Drawing.Size(273, 41);
             this.pauseLabel.TabIndex = 4;
             this.pauseLabel.Text = "Pause";
             this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.pauseLabel.Visible = false;
+            // 
+            // pausePanel
+            // 
+            this.pausePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pausePanel.Controls.Add(this.label1);
+            this.pausePanel.Controls.Add(this.pauseLabel);
+            this.pausePanel.Location = new System.Drawing.Point(233, 64);
+            this.pausePanel.Name = "pausePanel";
+            this.pausePanel.Size = new System.Drawing.Size(273, 162);
+            this.pausePanel.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(273, 38);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Raise right hand over your head\r\nor Press Home";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 486);
-            this.Controls.Add(this.pauseLabel);
+            this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.scoreLablel);
             this.Controls.Add(this.splashButton);
             this.Controls.Add(this.splashLabel);
@@ -130,6 +153,7 @@
             this.Text = "3D2048";
             this.Load += new System.EventHandler(this.Form1_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
+            this.pausePanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +165,8 @@
         private System.Windows.Forms.Button splashButton;
         private System.Windows.Forms.Label scoreLablel;
         private System.Windows.Forms.Label pauseLabel;
+        private System.Windows.Forms.Panel pausePanel;
+        private System.Windows.Forms.Label label1;
     }
 }
 

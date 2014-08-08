@@ -111,6 +111,7 @@ namespace _3D2048.Util
                     {
                         Console.WriteLine("Pausing " + (triggerDistance / 8).ToString());
                         watchMovement = false;
+                        logic.pause();
                         return;
                     }
 
@@ -162,12 +163,12 @@ namespace _3D2048.Util
                     }
 
                     // Left hand: Rotate
-                    if (leftHand.x < leftShoulder.x - (triggerDistance))
+                    if (leftHand.x < leftShoulder.x - (triggerDistance / 2))
                     {
                         Vector3D vect = new Vector3D(0, -2,0);
                         cam.cubeRotation += vect;
                     }
-                    else if (leftHand.x > leftShoulder.x + (triggerDistance))
+                    else if (leftHand.x > leftShoulder.x + (triggerDistance / 2))
                     {
                         Vector3D vect = new Vector3D(0, 2, 0);
                         cam.cubeRotation += vect;
@@ -180,6 +181,9 @@ namespace _3D2048.Util
                     {
                         Console.WriteLine("watch movement");
                         watchMovement = true;
+                        moveTriggered = true;
+                        logic.resume();
+                        logic.gameModel.started = true;
                         System.Threading.Thread.Sleep(100);
                     }
                 }
