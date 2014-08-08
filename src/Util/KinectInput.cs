@@ -18,14 +18,8 @@ namespace _3D2048.Util
         private GameLogic logic;
         private Camera cam;
         private bool watchMovement = false;
-        private bool moveRight = false;
-        private bool moveLeft = false;
-        private bool moveUp = false;
-        private bool moveDown = false;
-        private bool moveForward = false;
-        private bool moveBack = false;
         private bool moveTriggered = false;
-        private bool rotateTriggered = false;
+        private int trackingId = 0;
 
         public KinectInput(GameLogic logic, Camera cam)
         {
@@ -86,9 +80,22 @@ namespace _3D2048.Util
                 }
             }
 
+            
+
             if (skeletons.Length > 0)
             {
                 Skeleton workingSkeleton = skeletons[0];
+
+                foreach (Skeleton skel in skeletons)
+                {
+                    if (skel.TrackingState == SkeletonTrackingState.Tracked)
+                    {
+                        workingSkeleton = skel;
+                        trackingId = 1;
+                        skel.TrackingId = trackingId;
+                    }
+                }
+
                 Vector3D rightHand = convertSkeletonPoint(workingSkeleton.Joints[JointType.HandRight].Position);
                 Vector3D rightShoulder = convertSkeletonPoint(workingSkeleton.Joints[JointType.ShoulderRight].Position);
                 Vector3D leftHand = convertSkeletonPoint(workingSkeleton.Joints[JointType.HandLeft].Position);
@@ -164,10 +171,6 @@ namespace _3D2048.Util
                     {
                         Vector3D vect = new Vector3D(0, 2, 0);
                         cam.cubeRotation += vect;
-                    }
-                    else if (leftHand.x > leftShoulder.x - (triggerDistance / 1.5))
-                    {
-                        rotateTriggered = false;
                     }
                     
                 }
