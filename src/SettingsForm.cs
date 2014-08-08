@@ -8,23 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3D2048.Logic;
+using _3D2048.Properties;
 
 namespace _3D2048
 {
-    public partial class Settings : Form
+    public partial class SettingsForm : Form
     {
         private Form1 parent;
-        public String texturePath
-        {
-            set;
-            get;
-        }
+        private bool updateTextures = false;
 
-
-        public Settings(Form1 form)
+        public SettingsForm(Form1 form)
         {
             this.parent = form;
             InitializeComponent();
+            this.texturePreview.ImageLocation = Settings.Default.texturePath;
+            this.selSize.Value = Settings.Default.gameSize;
         }
 
         private void selTexture_Click(object sender, EventArgs e)
@@ -32,14 +30,32 @@ namespace _3D2048
             DialogResult result = openFile.ShowDialog();
             if (result == DialogResult.OK)
             {
-                texturePath = openFile.FileName;
+                if (openFile.FileName != Settings.Default.texturePath)
+                {
+                    Settings.Default.texturePath = openFile.FileName;
+                    texturePreview.ImageLocation = Settings.Default.texturePath;
+                    updateTextures = true;
+                }
             }
         }
 
         private void applyButton_Click(object sender, EventArgs e)
         {
-            GameState.size = (int) selSize.Value;
-            parent.applySettings();
+            if (selSize.Value != Settings.Default.gameSize)
+            {
+                Settings.Default.gameSize = (int)selSize.Value;
+                parent.updateSize();
+            }
+            if (updateTextures)
+            {
+                parent.updateTextures();
+                updateTextures = false;
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void selSize_ValueChanged(object sender, EventArgs e)
+        {
         }
 
 
@@ -67,7 +83,7 @@ namespace _3D2048
 
         private void button1_Click(object sender, EventArgs e)
         {
-            GameState.size = (int)numericUpDown1.Value;
+            Settings.gameSize = (int)numericUpDown1.Value;
             gameLogic.reset();
         }
 

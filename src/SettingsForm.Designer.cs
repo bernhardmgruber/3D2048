@@ -1,6 +1,6 @@
 ﻿namespace _3D2048
 {
-    partial class Settings
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -61,6 +61,7 @@
             0,
             0,
             0});
+            this.selSize.ValueChanged += new System.EventHandler(this.selSize_ValueChanged);
             // 
             // cube
             // 
@@ -97,6 +98,7 @@
             this.texturePreview.Location = new System.Drawing.Point(77, 38);
             this.texturePreview.Name = "texturePreview";
             this.texturePreview.Size = new System.Drawing.Size(100, 100);
+            this.texturePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.texturePreview.TabIndex = 14;
             this.texturePreview.TabStop = false;
             // 
@@ -115,7 +117,7 @@
             // 
             this.openFile.Filter = "bmp Images|*.bmp";
             // 
-            // Settings
+            // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,7 +128,7 @@
             this.Controls.Add(this.selTexture);
             this.Controls.Add(this.cube);
             this.Controls.Add(this.selSize);
-            this.Name = "Settings";
+            this.Name = "SettingsForm";
             this.Text = "Settings";
             ((System.ComponentModel.ISupportInitialize)(this.selSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texturePreview)).EndInit();

@@ -8,13 +8,23 @@ namespace _3D2048.Logic
 {
     class GameState
     {
-        public static int size = 3;
         public int score = 0;
-
-        public int [, ,] field = new int[size, size, size];
+        public int gameSize;
+        public int [, ,] field;
         public bool lost = false;
         public bool won = false;
         public bool pause = false;
-     
+
+        public GameState(int gameSize)
+        {
+            this.gameSize = gameSize;
+            field = new int[gameSize, gameSize, gameSize];
+        }
+
+        public GameState()
+        {
+            this.gameSize = 0;
+        }
+
     }
 }

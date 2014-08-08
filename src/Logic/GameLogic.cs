@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _3D2048.Util;
 using System.Diagnostics;
+using _3D2048.Properties;
 
 namespace _3D2048.Logic
 {
@@ -15,7 +16,7 @@ namespace _3D2048.Logic
         public GameLogic()
         {
             random = new Random();
-            gameModel = new GameState();
+            reset();
         }
 
         public Direction getMoveDependentDirection(Direction direction, Camera gameCamera)
@@ -117,21 +118,21 @@ namespace _3D2048.Logic
             int[] nextPos = new int[3];
 
             // enumerate all stacks to collapse
-            for (int i = 0; i < GameState.size; i++)
+            for (int i = 0; i < gameModel.gameSize; i++)
             {
-                for (int j = 0; j < GameState.size; j++)
+                for (int j = 0; j < gameModel.gameSize; j++)
                 {
                     bool stackModified;
                     do
                     {
                         stackModified = false;
 
-                        pos[axis] = stepDir > 0 ? GameState.size - 1 : 0;
+                        pos[axis] = stepDir > 0 ? gameModel.gameSize - 1 : 0;
                         pos[(axis + 1) % 3] = i;
                         pos[(axis + 2) % 3] = j;
 
                         // for each stack element
-                        for (int l = 0; l < GameState.size - 1; l++)
+                        for (int l = 0; l < gameModel.gameSize - 1; l++)
                         {
                             Array.Copy(pos, nextPos, 3);
                             nextPos[axis] -= stepDir;
@@ -205,11 +206,11 @@ namespace _3D2048.Logic
             // loss/win and count zeros
             int nullCounter = 0;
 
-            for (int l = 0; l < GameState.size; l++)
+            for (int l = 0; l < gameModel.gameSize; l++)
             {
-                for (int j = 0; j < GameState.size; j++)
+                for (int j = 0; j < gameModel.gameSize; j++)
                 {
-                    for (int i = 0; i < GameState.size; i++)
+                    for (int i = 0; i < gameModel.gameSize; i++)
                     {
                         if (gameModel.field[i, j, l] == 0)
                         {
@@ -227,11 +228,11 @@ namespace _3D2048.Logic
             int randomNull = random.Next(0, nullCounter);
             nullCounter = 0;
             bool nullSet = false;
-            for (int l = 0; l < GameState.size && nullSet == false; l++)
+            for (int l = 0; l < gameModel.gameSize && nullSet == false; l++)
             {
-                for (int j = 0; j < GameState.size && nullSet == false; j++)
+                for (int j = 0; j < gameModel.gameSize && nullSet == false; j++)
                 {
-                    for (int i = 0; i < GameState.size && nullSet == false; i++)
+                    for (int i = 0; i < gameModel.gameSize && nullSet == false; i++)
                     {
                         if (gameModel.field[i, j, l] == 0)
                         {
@@ -261,7 +262,7 @@ namespace _3D2048.Logic
 
         public void reset()
         {
-            gameModel = new GameState();
+            gameModel = new GameState(Settings.Default.gameSize);
         }
 
         public void pause()

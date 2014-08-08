@@ -9,6 +9,7 @@ using _3D2048.Rendering;
 using _3D2048.Logic;
 
 using SharpGL;
+using _3D2048.Properties;
 
 namespace _3D2048
 {
@@ -19,7 +20,7 @@ namespace _3D2048
         private _3D2048.Logic.GameLogic gameLogic;
 
         private Renderer renderer;
-        private Settings settings;
+        private SettingsForm settings;
         private bool mouseIsMoving;
         private Vector3D lastMousePosition;
         private Camera gameCamera;
@@ -37,7 +38,7 @@ namespace _3D2048
             lastMousePosition = new Vector3D(0, 0, 0);
 
             //showSplash("3D 2048", "Start");
-            settings = new Settings(this);
+            settings = new SettingsForm(this);
             settings.Show();
             initOpenGL();
         }
@@ -46,7 +47,7 @@ namespace _3D2048
         {
             //  Get the OpenGL object, for quick access.
             SharpGL.OpenGL gl = this.openGLControl1.OpenGL;
-            Textures textures = new Textures(gl, settings.texturePath == null ? "textures/base.bmp" : settings.texturePath);
+            Textures textures = new Textures(gl, Settings.Default.texturePath);
             renderer = new Renderer(gl, textures);
         }
 
@@ -191,9 +192,14 @@ namespace _3D2048
             hideSplash();
         }
 
-        public void applySettings()
+        public void updateSize()
         {
-            Textures textures = new Textures(openGLControl1.OpenGL, settings.texturePath);
+            gameLogic.reset();
+        }
+
+        public void updateTextures()
+        {
+            Textures textures = new Textures(openGLControl1.OpenGL, Settings.Default.texturePath);
             renderer.textures = textures;
         }
     }

@@ -64,15 +64,15 @@ namespace _3D2048.Rendering
             List<Tuple<Vector3D, int, float>> values = new List<Tuple<Vector3D, int, float>>();
 
             //Runthrough of the Gamestate Matrix in search for cubes to be rendered
-            for (int i = 0; i < GameState.size; i++)
+            for (int i = 0; i < state.gameSize; i++)
             {
-                for (int j = 0; j < GameState.size; j++)
+                for (int j = 0; j < state.gameSize; j++)
                 {
-                    for (int k = 0; k < GameState.size; k++)
+                    for (int k = 0; k < state.gameSize; k++)
                     {
                         if (state.field[i, j, k] != 0)
                         {
-                            Vector3D cubeData = new Vector3D(-GameState.size / 2.0f + 0.5f + i, -GameState.size / 2.0f + 0.5f + j, -GameState.size / 2.0f + 0.5f + k);  //Calculates and saves a single cubes object coord center on the world coordinates  
+                            Vector3D cubeData = new Vector3D(-state.gameSize / 2.0f + 0.5f + i, -state.gameSize / 2.0f + 0.5f + j, -state.gameSize / 2.0f + 0.5f + k);  //Calculates and saves a single cubes object coord center on the world coordinates  
                             int cubeValue = state.field[i, j, k];                                                                                                       //Saves Value of a Cube from the current Position in the gamestate Matrix
                             
                             //Adds The Modelmatrix to all Points of the Cube                                                   

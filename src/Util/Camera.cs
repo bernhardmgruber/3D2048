@@ -1,4 +1,5 @@
 ﻿using _3D2048.Logic;
+using _3D2048.Properties;
 using _3D2048.Rendering;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace _3D2048.Util
         public Camera()
         {
             cubeRotation = new Vector3D(10, 0, 0);
-            zoom = -GameState.size*1.85f;
+            zoom = -Settings.Default.gameSize * 1.85f;
         }
 
         public CubeFace getFrontFace()
