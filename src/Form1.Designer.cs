@@ -32,7 +32,6 @@
             this.openGLControl1 = new SharpGL.OpenGLControl();
             this.splashLabel = new System.Windows.Forms.Label();
             this.splashButton = new System.Windows.Forms.Button();
-            this.scoreLablel = new System.Windows.Forms.Label();
             this.pauseLabel = new System.Windows.Forms.Label();
             this.pausePanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -90,18 +89,6 @@
             this.splashButton.Visible = false;
             this.splashButton.Click += new System.EventHandler(this.splashButton_Click);
             // 
-            // scoreLablel
-            // 
-            this.scoreLablel.AutoSize = true;
-            this.scoreLablel.BackColor = System.Drawing.Color.Transparent;
-            this.scoreLablel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scoreLablel.ForeColor = System.Drawing.Color.Crimson;
-            this.scoreLablel.Location = new System.Drawing.Point(12, 9);
-            this.scoreLablel.Name = "scoreLablel";
-            this.scoreLablel.Size = new System.Drawing.Size(45, 17);
-            this.scoreLablel.TabIndex = 3;
-            this.scoreLablel.Text = "Score";
-            // 
             // pauseLabel
             // 
             this.pauseLabel.BackColor = System.Drawing.Color.Transparent;
@@ -143,7 +130,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 486);
             this.Controls.Add(this.pausePanel);
-            this.Controls.Add(this.scoreLablel);
             this.Controls.Add(this.splashButton);
             this.Controls.Add(this.splashLabel);
             this.Controls.Add(this.openGLControl1);
@@ -163,7 +149,6 @@
         #endregion
         private System.Windows.Forms.Label splashLabel;
         private System.Windows.Forms.Button splashButton;
-        private System.Windows.Forms.Label scoreLablel;
         private System.Windows.Forms.Label pauseLabel;
         private System.Windows.Forms.Panel pausePanel;
         private System.Windows.Forms.Label label1;
