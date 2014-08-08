@@ -118,11 +118,6 @@ namespace _3D2048
             mouseIsMoving = false;
         }
 
-        private void openGLControl1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            gameCamera.zoom += e.Delta > 0 ? 1 : -1;
-        }
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
