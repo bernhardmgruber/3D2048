@@ -52,6 +52,7 @@ namespace _3D2048
                 updateTextures = false;
             }
             Properties.Settings.Default.Save();
+            this.Hide();
         }
 
         private void selSize_ValueChanged(object sender, EventArgs e)
