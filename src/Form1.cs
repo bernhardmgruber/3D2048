@@ -44,8 +44,11 @@ namespace _3D2048
 
             //showSplash("3D 2048", "Start");
             settings = new SettingsForm(this);
-            settings.Show();
             initOpenGL();
+
+            // Menu buttons:
+            pausePanel.Dock = DockStyle.Fill;
+            pausePanel.BackColor = System.Drawing.Color.FromArgb(255, 0xee, 0xe4, 0xda);
 
             generateMenuButtons();
         }
@@ -249,6 +252,15 @@ namespace _3D2048
 
         private void generateMenuButtons()
         {
+            Button btnSettings = new Button();
+            btnSettings.Text = "Settings";
+            btnSettings.Dock = DockStyle.Bottom;
+            btnSettings.Height = 50;
+            btnSettings.Font = new System.Drawing.Font("Tahoma", 18, FontStyle.Regular);
+            btnSettings.Click += btnSettings_Click;
+            pauseMenuButtons.Add(btnSettings);
+            pausePanel.Controls.Add(btnSettings);
+
             Button btnRestart = new Button();
             btnRestart.Text = "Restart";
             btnRestart.Dock = DockStyle.Bottom;
@@ -259,7 +271,7 @@ namespace _3D2048
             pausePanel.Controls.Add(btnRestart);
 
             Button btnResume = new Button();
-            btnResume.Text = "Resume";
+            btnResume.Text = "Resume / Start";
             btnResume.Dock = DockStyle.Bottom;
             btnResume.Height = 50;
             btnResume.Font = new System.Drawing.Font("Tahoma", 18, FontStyle.Regular);
@@ -279,12 +291,18 @@ namespace _3D2048
             gameLogic.gameModel.started = true;
         }
 
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            settings = new SettingsForm(this);
+            settings.Show();
+        }
+
         private void nextMenuButton()
         {
             int currBtn = 0;
             foreach (Button btn in pauseMenuButtons)
             {
-                btn.BackColor = System.Drawing.SystemColors.Control;
+                btn.BackColor = System.Drawing.Color.FromArgb(255, 0xee, 0xe4, 0xda);
             }
             foreach (Button btn in pauseMenuButtons)
             {
@@ -302,7 +320,7 @@ namespace _3D2048
                 currBtn = 0;
             }
             pauseMenuButtons[currBtn].Tag = "curr";
-            pauseMenuButtons[currBtn].BackColor = System.Drawing.Color.CornflowerBlue;
+            pauseMenuButtons[currBtn].BackColor = System.Drawing.Color.FromArgb(255, 0xed, 0xc5, 0x3f);
         }
 
         private void pressMenuButton()

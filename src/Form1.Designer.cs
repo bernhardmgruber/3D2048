@@ -105,11 +105,12 @@
             // pausePanel
             // 
             this.pausePanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pausePanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pausePanel.Controls.Add(this.label1);
             this.pausePanel.Controls.Add(this.pauseLabel);
-            this.pausePanel.Location = new System.Drawing.Point(191, 62);
+            this.pausePanel.Location = new System.Drawing.Point(192, 42);
             this.pausePanel.Name = "pausePanel";
-            this.pausePanel.Size = new System.Drawing.Size(384, 316);
+            this.pausePanel.Size = new System.Drawing.Size(384, 381);
             this.pausePanel.TabIndex = 5;
             // 
             // label1

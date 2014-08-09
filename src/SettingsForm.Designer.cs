@@ -128,7 +128,12 @@
             this.Controls.Add(this.selTexture);
             this.Controls.Add(this.cube);
             this.Controls.Add(this.selSize);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Settings";
             ((System.ComponentModel.ISupportInitialize)(this.selSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texturePreview)).EndInit();
